@@ -4,29 +4,39 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5 import uic
 import sqlite3
 
-conn = sqlite3.connect('basedate/base.db')
+conn = sqlite3.connect('base_date/base.db')
 cursor = conn.cursor()
 
 
 # conn.close()
+
 class FirstWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.init_ui()
         self.window = None
         self.general_window = None
+        self.user_name = None
+        self.init_ui()
 
     def init_ui(self):
         super(FirstWindow, self).__init__()
-        self.window = uic.loadUi('C:/my_key_board/qt_designer/first_window.ui', self)
+        self.window = uic.loadUi('qt_designer/first_window.ui', self)
         self.window.setWindowTitle('Введите имя')
         self.show()
         self.window.btnfinished.clicked.connect(self.btn_clicked)
 
     def btn_clicked(self):
-        self.general_window = GeneralWindow()
-        self.general_window.show()
-        self.close()
+        result_name = self.window.user_name_label.text()
+        if result_name:
+            cursor.execute('INSERT INTO user_informational '
+                           'VAlUES (?)', (result_name,))
+            conn.commit()
+            self.general_window = GeneralWindow()
+            self.general_window.show()
+            self.close()
+        else:
+            self.window.warning.setText("нельзя войти с пустым именем")
+
 
 
 class GeneralWindow(QtWidgets.QMainWindow):
@@ -62,8 +72,11 @@ class Test(QtWidgets.QMainWindow):
 
 
 if __name__ == '__main__':
-    result = cursor.execute("SELECT user_name FROM user_informational").fetchone()
-    print(result)
+    result = cursor.execute('SELECT user_name '
+                            'FROM user_informational').fetchone()
     app = QApplication(sys.argv)
-    window = FirstWindow()
+    if not result:
+        window = FirstWindow()
+    else:
+        window = GeneralWindow()
     sys.exit(app.exec_())

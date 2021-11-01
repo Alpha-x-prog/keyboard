@@ -64,7 +64,7 @@
        <bool>false</bool>
       </property>
       <property name="text">
-       <string>Напишите своё имя, чтобы нам было удобнее обращаться к вам</string>
+       <string>напишите своё имя, чтобы нам было удобнее обращаться к вам</string>
       </property>
       <property name="textFormat">
        <enum>Qt::PlainText</enum>
@@ -108,7 +108,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit">
+       <widget class="QLineEdit" name="user_name_label">
         <property name="enabled">
          <bool>true</bool>
         </property>
@@ -180,9 +180,10 @@
         </property>
         <property name="font">
          <font>
+          <family>Yu Gothic UI Semibold</family>
           <pointsize>20</pointsize>
-          <weight>50</weight>
-          <bold>false</bold>
+          <weight>75</weight>
+          <bold>true</bold>
          </font>
         </property>
         <property name="styleSheet">
@@ -208,6 +209,33 @@
       </property>
       <property name="text">
        <string>максимальное количество символов - 20</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="warning">
+      <property name="font">
+       <font>
+        <family>Copperplate Gothic Light</family>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="mouseTracking">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 0, 4);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
