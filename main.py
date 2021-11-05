@@ -3,6 +3,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication
 from PyQt5 import uic
 import sqlite3
+import random
 
 conn = sqlite3.connect('base_date/base.db')
 cursor = conn.cursor()
@@ -67,6 +68,13 @@ class Test(QtWidgets.QMainWindow):
         super(Test, self).__init__()
         self.window = uic.loadUi('qt_designer/test.ui', self)
         self.window.setWindowTitle('Проверка скорости')
+        count_str = cursor.execute('SELECT COUNT(1) '
+                                   'FROM texts').fetchone()[0]
+        id_text = random.randint(1, count_str)
+        text = cursor.execute('SELECT text '
+                              'FROM texts '
+                              'WHERE id = ?', (id_text,)).fetchone()[0]
+        self.window.for_text.setPlainText(text)
         self.show()
 
 
