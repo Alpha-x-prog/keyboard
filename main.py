@@ -38,7 +38,6 @@ class FirstWindow(QtWidgets.QMainWindow):
             self.window.warning.setText("нельзя войти с пустым именем")
 
 
-
 class GeneralWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
@@ -47,7 +46,7 @@ class GeneralWindow(QtWidgets.QMainWindow):
 
     def initUI(self):
         super(GeneralWindow, self).__init__()
-        self.window = uic.loadUi('C:/my_key_board/qt_designer/general information.ui', self)
+        self.window = uic.loadUi('qt_designer/general information.ui', self)
         self.window.setWindowTitle('Общее')
         self.show()
         self.window.btntest.clicked.connect(self.testing)
@@ -61,12 +60,12 @@ class GeneralWindow(QtWidgets.QMainWindow):
 class Test(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.initUI()
+        self.init_ui()
         self.window = None
 
-    def initUI(self):
+    def init_ui(self):
         super(Test, self).__init__()
-        self.window = uic.loadUi('C:/my_key_board/qt_designer/test.ui', self)
+        self.window = uic.loadUi('qt_designer/test.ui', self)
         self.window.setWindowTitle('Проверка скорости')
         self.show()
 
