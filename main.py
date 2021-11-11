@@ -1,9 +1,10 @@
 import sys
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QApplication
 from PyQt5 import uic
 import sqlite3
 import random
+from pynput import keyboard
 
 conn = sqlite3.connect('base_date/base.db')
 cursor = conn.cursor()
@@ -58,11 +59,17 @@ class GeneralWindow(QtWidgets.QMainWindow):
         self.close()
 
 
+def on_press(key):
+    print(key)
+
+
 class Test(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.init_ui()
         self.window = None
+        self.count_pressed = 0
+        self.text = None
+        self.init_ui()
 
     def init_ui(self):
         super(Test, self).__init__()
@@ -71,11 +78,21 @@ class Test(QtWidgets.QMainWindow):
         count_str = cursor.execute('SELECT COUNT(1) '
                                    'FROM texts').fetchone()[0]
         id_text = random.randint(1, count_str)
-        text = cursor.execute('SELECT text '
-                              'FROM texts '
-                              'WHERE id = ?', (id_text,)).fetchone()[0]
-        self.window.for_text.setPlainText(text)
+        self.text, symbols = cursor.execute('SELECT text, symbols '
+                                            'FROM texts '
+                                            'WHERE id = ?', (id_text,)).fetchone()
+        self.window.for_text.setPlainText(self.text)
         self.show()
+        self.window.user_text.installEventFilter(self)
+
+    def eventFilter(self, obj, event):
+        if obj is self.window.user_text and event.type() == QtCore.QEvent.KeyPress:
+            if event.text() == self.text[self.count_pressed]:
+                self.count_pressed+=1
+                return False
+            else:
+                return True
+        return False
 
 
 if __name__ == '__main__':

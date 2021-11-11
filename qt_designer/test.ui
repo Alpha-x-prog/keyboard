@@ -341,7 +341,7 @@ border-color: blue;</string>
        </spacer>
       </item>
       <item>
-       <widget class="QPlainTextEdit" name="plainTextEdit_2">
+       <widget class="QPlainTextEdit" name="user_text">
         <property name="minimumSize">
          <size>
           <width>1000</width>
@@ -365,9 +365,7 @@ border-style: solid;
 border-color: blue;</string>
         </property>
         <property name="plainText">
-         <string>какой-то текст
-
-</string>
+         <string/>
         </property>
        </widget>
       </item>
