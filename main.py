@@ -4,11 +4,12 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5 import uic
 import sqlite3
 import random
-from pynput import keyboard
+from PyQt5.QtCore import QObject
+from PyQt5.QtWidgets import QApplication, QPushButton, QVBoxLayout, QWidget
 
 conn = sqlite3.connect('base_date/base.db')
 cursor = conn.cursor()
-
+first_side = ['ё','й','ц','у','к','е','ф','ы','в','а','п','я','ч','с','м','и','1','2','3','4','5','','','','','','','','','','','','','']
 
 # conn.close()
 
@@ -59,16 +60,14 @@ class GeneralWindow(QtWidgets.QMainWindow):
         self.close()
 
 
-def on_press(key):
-    print(key)
-
-
 class Test(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.window = None
         self.count_pressed = 0
         self.text = None
+        self.first_color_button = None
+        self.dop_button_color = None
         self.init_ui()
 
     def init_ui(self):
@@ -83,12 +82,15 @@ class Test(QtWidgets.QMainWindow):
                                             'WHERE id = ?', (id_text,)).fetchone()
         self.window.for_text.setPlainText(self.text)
         self.show()
+        name_button = 'pushButton_' + str(ord(self.text[0]))
+        self.first_color = self.window.findChild(QPushButton, name_button).palette().button().color().name()
+        self.window.findChild(QPushButton, name_button).setStyleSheet("background-color: #00ff00")
         self.window.user_text.installEventFilter(self)
 
     def eventFilter(self, obj, event):
         if obj is self.window.user_text and event.type() == QtCore.QEvent.KeyPress:
             if event.text() == self.text[self.count_pressed]:
-                self.count_pressed+=1
+                self.count_pressed += 1
                 return False
             else:
                 return True

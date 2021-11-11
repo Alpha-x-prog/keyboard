@@ -27,7 +27,7 @@
        <enum>QLayout::SetDefaultConstraint</enum>
       </property>
       <item>
-       <spacer name="horizontalSpacer">
+       <spacer name="horizofdsntalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -40,7 +40,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_5">
+       <widget class="QPushButton" name="fds_3">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -74,7 +74,7 @@ color: rgb(255, 255, 255);</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="fsd">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -108,7 +108,7 @@ color: rgb(255, 255, 255);</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_4">
+       <widget class="QPushButton" name="fds_2">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -142,7 +142,7 @@ color: rgb(255, 255, 255);</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="fds">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -446,7 +446,7 @@ border-color: blue;</string>
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_16">
+           <widget class="QPushButton" name="pushButton_1025">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -479,7 +479,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_12">
+           <widget class="QPushButton" name="pushButton_49">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -512,7 +512,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_10">
+           <widget class="QPushButton" name="pushButton_50">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -545,7 +545,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_13">
+           <widget class="QPushButton" name="pushButton_51">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -578,7 +578,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_15">
+           <widget class="QPushButton" name="pushButton_52">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -603,7 +603,7 @@ border-color: blue;</string>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(236, 13, 84);</string>
+             <string notr="true">background-color: rgb(160, 165, 255);</string>
             </property>
             <property name="text">
              <string>4</string>
@@ -611,7 +611,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_14">
+           <widget class="QPushButton" name="pushButton_53">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -636,7 +636,7 @@ border-color: blue;</string>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(236, 13, 84);</string>
+             <string notr="true">background-color: rgb(160, 165, 255);</string>
             </property>
             <property name="text">
              <string>5</string>
@@ -644,7 +644,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_11">
+           <widget class="QPushButton" name="pushButton_54">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -677,7 +677,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_9">
+           <widget class="QPushButton" name="pushButton_55">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -710,7 +710,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_7">
+           <widget class="QPushButton" name="pushButton_56">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -743,7 +743,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_8">
+           <widget class="QPushButton" name="pushButton_57">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -776,7 +776,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="pushButton_48">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -809,7 +809,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_6">
+           <widget class="QPushButton" name="pushButton_45">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -842,7 +842,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_17">
+           <widget class="QPushButton" name="pushButton_61">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -875,7 +875,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_18">
+           <widget class="QPushButton" name="BackSpace">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -941,7 +941,7 @@ border-color: blue;</string>
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_24">
+           <widget class="QPushButton" name="Tab">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -974,7 +974,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_23">
+           <widget class="QPushButton" name="pushButton_1049">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1007,7 +1007,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_29">
+           <widget class="QPushButton" name="pushButton_1062">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1034,7 +1034,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_31">
+           <widget class="QPushButton" name="pushButton_1059">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1067,7 +1067,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_30">
+           <widget class="QPushButton" name="pushButton_1050">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1092,7 +1092,7 @@ border-color: blue;</string>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(236, 13, 84);</string>
+             <string notr="true">background-color: rgb(160, 165, 255);</string>
             </property>
             <property name="text">
              <string>К</string>
@@ -1100,7 +1100,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_32">
+           <widget class="QPushButton" name="pushButton_1045">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1125,7 +1125,7 @@ border-color: blue;</string>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(236, 13, 84);</string>
+             <string notr="true">background-color: rgb(160, 165, 255);</string>
             </property>
             <property name="text">
              <string>Е</string>
@@ -1133,7 +1133,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_28">
+           <widget class="QPushButton" name="pushButton_1053">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1166,7 +1166,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_27">
+           <widget class="QPushButton" name="pushButton_1043">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1199,7 +1199,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_26">
+           <widget class="QPushButton" name="pushButton_1064">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1226,7 +1226,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_25">
+           <widget class="QPushButton" name="pushButton_1065">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1259,7 +1259,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_22">
+           <widget class="QPushButton" name="pushButton_1047">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1292,7 +1292,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_19">
+           <widget class="QPushButton" name="pushButton_1061">
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -1319,7 +1319,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_21">
+           <widget class="QPushButton" name="pushButton_1066">
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -1346,7 +1346,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_20">
+           <widget class="QPushButton" name="pushButton_92">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1412,7 +1412,7 @@ border-color: blue;</string>
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_41">
+           <widget class="QPushButton" name="Caps">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1445,7 +1445,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_39">
+           <widget class="QPushButton" name="pushButton_1060">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1478,7 +1478,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_42">
+           <widget class="QPushButton" name="pushButton_1067">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1511,7 +1511,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_37">
+           <widget class="QPushButton" name="pushButton_1042">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1544,7 +1544,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_40">
+           <widget class="QPushButton" name="pushButton_1040">
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -1563,7 +1563,7 @@ border-color: blue;</string>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(236, 13, 84);</string>
+             <string notr="true">background-color: rgb(160, 165, 255);</string>
             </property>
             <property name="text">
              <string>А</string>
@@ -1571,7 +1571,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_35">
+           <widget class="QPushButton" name="pushButton_1055">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1596,7 +1596,7 @@ border-color: blue;</string>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(236, 13, 84);</string>
+             <string notr="true">background-color: rgb(160, 165, 255);</string>
             </property>
             <property name="text">
              <string>П</string>
@@ -1604,7 +1604,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_38">
+           <widget class="QPushButton" name="pushButton_1056">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1637,7 +1637,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_33">
+           <widget class="QPushButton" name="pushButton_1054">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1670,7 +1670,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_36">
+           <widget class="QPushButton" name="pushButton_1051">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1703,7 +1703,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_43">
+           <widget class="QPushButton" name="pushButton_1044">
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -1730,7 +1730,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_44">
+           <widget class="QPushButton" name="pushButton_1046">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1763,7 +1763,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_45">
+           <widget class="QPushButton" name="pushButton_1069">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1796,7 +1796,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_46">
+           <widget class="QPushButton" name="Enter">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1862,7 +1862,7 @@ border-color: blue;</string>
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_55">
+           <widget class="QPushButton" name="Left_Shift">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1897,7 +1897,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_51">
+           <widget class="QPushButton" name="pushButton_1071">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1932,7 +1932,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_52">
+           <widget class="QPushButton" name="pushButton_1063">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1967,7 +1967,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_49">
+           <widget class="QPushButton" name="pushButton_1057">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -2000,7 +2000,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_59">
+           <widget class="QPushButton" name="pushButton_1052">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -2025,7 +2025,7 @@ border-color: blue;</string>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(236, 13, 84);</string>
+             <string notr="true">background-color: rgb(160, 165, 255);</string>
             </property>
             <property name="text">
              <string>М</string>
@@ -2033,7 +2033,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_58">
+           <widget class="QPushButton" name="pushButton_1048">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -2058,7 +2058,7 @@ border-color: blue;</string>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(236, 13, 84);</string>
+             <string notr="true">background-color: rgb(160, 165, 255);</string>
             </property>
             <property name="text">
              <string>И</string>
@@ -2066,7 +2066,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_57">
+           <widget class="QPushButton" name="pushButton_1058">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -2099,7 +2099,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_62">
+           <widget class="QPushButton" name="pushButton_1068">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -2134,7 +2134,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_61">
+           <widget class="QPushButton" name="pushButton_1041">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -2169,7 +2169,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_60">
+           <widget class="QPushButton" name="pushButton_1070">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -2204,7 +2204,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_54">
+           <widget class="QPushButton" name="pushButton_46">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -2239,7 +2239,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_34">
+           <widget class="QPushButton" name="Right_Shift">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -2310,7 +2310,7 @@ border-color: blue;</string>
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_50">
+           <widget class="QPushButton" name="Space">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -2338,7 +2338,7 @@ border-color: blue;</string>
              <string notr="true">background-color: rgb(255, 85, 255);</string>
             </property>
             <property name="text">
-             <string>SPACE</string>
+             <string>Space</string>
             </property>
            </widget>
           </item>
