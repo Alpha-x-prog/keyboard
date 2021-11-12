@@ -9,9 +9,11 @@ from PyQt5.QtWidgets import QApplication, QPushButton, QVBoxLayout, QWidget
 
 conn = sqlite3.connect('base_date/base.db')
 cursor = conn.cursor()
-first_side = ['ё','й','ц','у','к','е','ф','ы','в','а','п','я','ч','с','м','и','1','2','3','4','5','','','','','','','','','','','','','']
+first_side = ['Ё', 'Ё', 'Ц', 'У', 'К', 'Е', 'Ф', 'Ы', 'В', 'А', 'П', 'Я', 'Ч', 'С', 'М', 'И', '1', '2', '3', '4', '5']
+
 
 # conn.close()
+
 
 class FirstWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -68,6 +70,8 @@ class Test(QtWidgets.QMainWindow):
         self.text = None
         self.first_color_button = None
         self.dop_button_color = None
+        self.first_button = None
+        self.shift_button = 0
         self.init_ui()
 
     def init_ui(self):
@@ -82,19 +86,44 @@ class Test(QtWidgets.QMainWindow):
                                             'WHERE id = ?', (id_text,)).fetchone()
         self.window.for_text.setPlainText(self.text)
         self.show()
-        name_button = 'pushButton_' + str(ord(self.text[0]))
-        self.first_color = self.window.findChild(QPushButton, name_button).palette().button().color().name()
-        self.window.findChild(QPushButton, name_button).setStyleSheet("background-color: #00ff00")
+        self.change_color_button_green(ord(self.text[self.count_pressed]))
         self.window.user_text.installEventFilter(self)
 
     def eventFilter(self, obj, event):
         if obj is self.window.user_text and event.type() == QtCore.QEvent.KeyPress:
             if event.text() == self.text[self.count_pressed]:
+                self.change_color_button_reverse()
+                self.change_color_button_green(ord(self.text[self.count_pressed + 1].upper()))
                 self.count_pressed += 1
                 return False
             else:
                 return True
         return False
+
+    def change_color_button_green(self, number_button):
+        self.first_button = 'pushButton_' + str(number_button)
+        self.first_color_button = self.window.findChild(QPushButton,
+                                                        self.first_button).palette().button().color().name()
+        self.window.findChild(QPushButton, self.first_button).setStyleSheet("background-color: #00ff00")
+        name_button = self.text[self.count_pressed]
+        if name_button.isupper():
+            if name_button in first_side:
+                self.dop_button_color = self.window.Left_Shift.palette().button().color().name()
+                self.window.Left_Shift.setStyleSheet("background-color: #00ff00")
+                self.shift_button = 1
+            else:
+                self.dop_button_color = self.window.Right_Shift.palette().button().color().name()
+                self.window.Right_Shift.setStyleSheet("background-color: #00ff00")
+                self.shift_button = 2
+
+    def change_color_button_reverse(self):
+        self.window.findChild(QPushButton, self.first_button).setStyleSheet(
+            f"background-color: {self.first_color_button}")
+        if self.shift_button == 1:
+            self.window.Left_Shift.setStyleSheet(f"background-color: {self.dop_button_color}")
+        elif self.shift_button == 2:
+            self.window.Right_Shift.setStyleSheet(f"background-color: {self.dop_button_color}")
+        self.shift = 0
 
 
 if __name__ == '__main__':
