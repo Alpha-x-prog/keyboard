@@ -232,6 +232,9 @@ color: rgb(255, 255, 255);</string>
     </item>
     <item>
      <layout class="QGridLayout" name="gridLayout">
+      <property name="horizontalSpacing">
+       <number>25</number>
+      </property>
       <item row="1" column="1">
        <widget class="QLabel" name="label_3">
         <property name="font">
@@ -270,26 +273,26 @@ color: rgb(255, 255, 255);</string>
        </spacer>
       </item>
       <item row="2" column="2">
-       <widget class="QLabel" name="label_7">
+       <widget class="QLabel" name="mistakes">
         <property name="font">
          <font>
           <pointsize>20</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>д</string>
+         <string/>
         </property>
        </widget>
       </item>
       <item row="0" column="2">
-       <widget class="QLabel" name="label_4">
+       <widget class="QLabel" name="time">
         <property name="font">
          <font>
           <pointsize>20</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>д</string>
+         <string/>
         </property>
        </widget>
       </item>
@@ -301,19 +304,19 @@ color: rgb(255, 255, 255);</string>
          </font>
         </property>
         <property name="text">
-         <string>Процент количества ошибок</string>
+         <string>Процент чистоты текста</string>
         </property>
        </widget>
       </item>
       <item row="1" column="2">
-       <widget class="QLabel" name="label_5">
+       <widget class="QLabel" name="speed">
         <property name="font">
          <font>
           <pointsize>20</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>д</string>
+         <string/>
         </property>
        </widget>
       </item>
@@ -330,14 +333,14 @@ color: rgb(255, 255, 255);</string>
        </widget>
       </item>
       <item row="3" column="2">
-       <widget class="QLabel" name="label_9">
+       <widget class="QLabel" name="purity">
         <property name="font">
          <font>
           <pointsize>20</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>д</string>
+         <string/>
         </property>
        </widget>
       </item>

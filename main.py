@@ -6,6 +6,7 @@ import random
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+import math
 
 conn = sqlite3.connect('base_date/base.db')
 cursor = conn.cursor()
@@ -19,7 +20,25 @@ additional_characters = {ord('"'): ['Left_Shift', 2], ord(':'): ['Right_Shift', 
 # conn.close()
 
 
-class FirstWindow(QtWidgets.QMainWindow):
+class SwitchBetweenButtons(QtWidgets.QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.window = None
+        self.user_test = None
+        self.user_lessons = None
+
+    def testing(self):
+        self.user_test = Test()
+        self.user_test.show()
+        self.close()
+
+    def lessons(self):
+        self.user_lessons = UserLessons()
+        self.user_lessons.show()
+        self.close()
+
+
+class FirstWindow(SwitchBetweenButtons):
     def __init__(self):
         super().__init__()
         self.window = None
@@ -47,23 +66,18 @@ class FirstWindow(QtWidgets.QMainWindow):
             self.window.warning.setText("нельзя войти с пустым именем")
 
 
-class GeneralWindow(QtWidgets.QMainWindow):
+class GeneralWindow(SwitchBetweenButtons):
     def __init__(self):
         super().__init__()
-        self.initUI()
-        self.window = None
+        self.init_ui()
 
-    def initUI(self):
+    def init_ui(self):
         super(GeneralWindow, self).__init__()
         self.window = uic.loadUi('qt_designer/general information.ui', self)
         self.window.setWindowTitle('Общее')
         self.show()
-        self.window.btntest.clicked.connect(self.testing)
-
-    def testing(self):
-        self.print_test = Test()
-        self.print_test.show()
-        self.close()
+        self.window.btn_testing.clicked.connect(self.testing)
+        self.window.btn_user_lessons.clicked.connect(self.lessons)
 
 
 class Test(QtWidgets.QMainWindow):
@@ -111,7 +125,7 @@ class Test(QtWidgets.QMainWindow):
                 self.change_color_button_reverse_green()
                 self.count_pressed += 1
                 if self.count_pressed >= self.symbols:
-                    self.result_typ = ResultTyping(self.count_time, self.mistakes)
+                    self.result_typ = ResultTyping(self.count_time, self.mistakes, self.symbols)
                     self.result_typ.show()
                     self.timer.stop()
                     self.close()
@@ -119,7 +133,8 @@ class Test(QtWidgets.QMainWindow):
                     self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
                 return False
             else:
-                self.mistakes += 1
+                if event.text():
+                    self.mistakes += 1
                 return True
         return False
 
@@ -159,18 +174,46 @@ class Test(QtWidgets.QMainWindow):
 
 
 class ResultTyping(QtWidgets.QMainWindow):
-    def __init__(self, time, mistakes):
+    def __init__(self, time, mistakes, symbols):
         super().__init__()
         self.window = None
-        self.time = time
-        self.mistakes = mistakes
+        self.time_typing = time
+        self.user_mistakes = mistakes
+        self.symbols = symbols
         self.init_ui()
 
     def init_ui(self):
-        print(self.mistakes, self.time)
         super(ResultTyping, self).__init__()
         self.window = uic.loadUi('qt_designer/result_test.ui', self)
+        minutes, second = self.russian_language(self.time_typing // 60, 'минут'), self.russian_language(
+            self.time_typing % 60, 'секунд'),
+
+        self.window.time.setText(f'{minutes} {second}')
+        self.window.speed.setText(f'{math.ceil(self.symbols // self.time_typing)} симв/мин')
+        self.window.mistakes.setText(f'{self.user_mistakes}')
+        print(self.user_mistakes, self.symbols)
+        self.window.purity.setText(f'{format((self.symbols - self.user_mistakes) / self.symbols * 100, ".2f")}%')
         self.show()
+
+    def russian_language(self, time, word):
+        if time == 0 or time >= 5:
+            time = str(str(time) + str(f" {word}"))
+        elif time == 1:
+            time = str(str(time) + str(f" {word}а"))
+        else:
+            time = str(str(time) + str(f" {word}ы"))
+        return time
+
+
+class UserLessons(SwitchBetweenButtons):
+    def __init__(self):
+        super().__init__()
+        self.init_ui()
+
+    def init_ui(self):
+        super(UserLessons, self).__init__()
+        self.window = uic.loadUi('qt_designer/user_lessons.ui', self)
+        pass
 
 
 if __name__ == '__main__':
