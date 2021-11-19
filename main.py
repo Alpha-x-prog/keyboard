@@ -32,7 +32,7 @@ class SwitchBetweenButtons(QtWidgets.QMainWindow):
         self.user_test.show()
         self.close()
 
-    def lessons(self):
+    def lessons(self, lesson_number=1, part=1):
         self.user_lessons = UserLessons()
         self.user_lessons.show()
         self.close()
@@ -97,6 +97,7 @@ class Test(QtWidgets.QMainWindow):
         self.count_time = 0
         self.mistakes = 0
         self.timer = None
+        self.first_press = 1
         self.init_ui()
 
     def init_ui(self):
@@ -106,7 +107,6 @@ class Test(QtWidgets.QMainWindow):
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.showTime)
-        self.timer.start(1000)
 
         count_str = cursor.execute('SELECT COUNT(1) '
                                    'FROM texts').fetchone()[0]
@@ -121,6 +121,9 @@ class Test(QtWidgets.QMainWindow):
 
     def eventFilter(self, obj, event):
         if obj is self.window.user_text and event.type() == QtCore.QEvent.KeyPress:
+            if self.first_press == 1:
+                self.timer.start(1000)
+                self.first_press = 0
             if event.text() == self.text[self.count_pressed]:
                 self.change_color_button_reverse_green()
                 self.count_pressed += 1
@@ -213,7 +216,14 @@ class UserLessons(SwitchBetweenButtons):
     def init_ui(self):
         super(UserLessons, self).__init__()
         self.window = uic.loadUi('qt_designer/user_lessons.ui', self)
-        pass
+        for i in range(3):
+            self.window.findChild(QComboBox, str('lesson_' + str((i + 1)))).activated[str].connect(self.number_lesson)
+        #  self.window.findChild(QComboBox, str('lesson_' + str((i + 1)))).currentIndexChanged[str].connect(self.number_lesson)
+
+    def number_lesson(self):
+        changed_text_box = str(self.sender().currentText())
+        print(changed_text_box[changed_text_box.rfind(" ") + 1:])
+        self.lessons(1, 1)
 
 
 if __name__ == '__main__':
