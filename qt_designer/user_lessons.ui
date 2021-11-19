@@ -782,7 +782,7 @@ color: rgb(255, 255, 255);</string>
              </spacer>
             </item>
             <item>
-             <widget class="QPlainTextEdit" name="for_text_2">
+             <widget class="QPlainTextEdit" name="for_text">
               <property name="enabled">
                <bool>false</bool>
               </property>
@@ -848,7 +848,7 @@ border-color: blue;</string>
              </spacer>
             </item>
             <item>
-             <widget class="QPlainTextEdit" name="user_text_2">
+             <widget class="QPlainTextEdit" name="user_text">
               <property name="minimumSize">
                <size>
                 <width>1000</width>
