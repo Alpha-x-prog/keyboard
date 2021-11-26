@@ -15,7 +15,7 @@ key_board = ["а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и", "й", "
              "-", "=", "\"", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 first_side = ['Ё', 'Ё', 'Ц', 'У', 'К', 'Е', 'Ф', 'Ы', 'В', 'А', 'П', 'Я', 'Ч', 'С', 'М', 'И', '1', '2', '3', '4', '5']
 additional_characters = {ord('"'): ['Left_Shift', 2], ord(':'): ['Right_Shift', 6], ord(","): ['Right_Shift', '.']}
-lessons_letters = {1: ['ф', 'ы', 'в', 'а', 'о', 'л', 'д', 'ж'], 2: ['п', 'р']}
+lessons_letters = {1: ['ф', 'ы', 'в', 'а', 'о', 'л', 'д', 'ж'], 2: ['п', 'р'], 3: ['к', 'г']}
 
 
 # conn.close()
@@ -42,13 +42,18 @@ class SwitchBetweenButtons(QtWidgets.QMainWindow):
 class ButtonsClick(SwitchBetweenButtons):
     def __init__(self):
         super().__init__()
+        self.text = None
         self.dop_button_color = None
         self.first_button = None
-        self.first_press = 1
         self.result_typ = None
         self.first_color_button = None
         self.shift_button = None
+        self.first_press = 1
         self.shift = None
+        self.count_pressed = 0
+        self.count_user_number_lesson = 1
+        self.timer = QTimer(self)
+        self.count_symbols_part_1 = []
 
     def eventFilter(self, obj, event):
         if obj is self.window.user_text and event.type() == QtCore.QEvent.KeyPress:
@@ -59,10 +64,18 @@ class ButtonsClick(SwitchBetweenButtons):
                 self.change_color_button_reverse_green()
                 self.count_pressed += 1
                 if self.count_pressed >= self.symbols:
-                    self.result_typ = ResultTyping(self.count_time, self.mistakes, self.symbols)
-                    self.result_typ.show()
-                    self.timer.stop()
-                    self.close()
+                    if self.us_lessons == 1:
+                        if self.count_user_number_lesson == 3:
+                            pass
+                        else:
+                            self.count_pressed = 0
+                            self.random_letters_part_1(self.count_symbols_part_1)
+                            return True
+                    else:
+                        self.result_typ = ResultTyping(self.count_time, self.mistakes, self.symbols)
+                        self.result_typ.show()
+                        self.timer.stop()
+                        self.close()
                 else:
                     self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
                 return False
@@ -105,6 +118,14 @@ class ButtonsClick(SwitchBetweenButtons):
     def showTime(self):
         self.count_time += 1
         self.window.time.setText(str(self.count_time // 60) + "." + str(self.count_time % 60).zfill(2))
+
+    def random_letters_part_1(self, a):
+        text = ""
+        for j in range(3):
+            text += str(random.choices(self.symbols_user, weights=a)[0]) + " "
+        self.text = text
+        self.window.for_text.setPlainText(text)
+        self.window.user_text.setPlainText("")
 
 
 class FirstWindow(SwitchBetweenButtons):
@@ -159,6 +180,8 @@ class Test(ButtonsClick):
         self.count_time = 0
         self.mistakes = 0
         self.timer = None
+        self.first_press = 1
+        self.us_lessons = 0
         self.init_ui()
 
     def init_ui(self):
@@ -166,7 +189,6 @@ class Test(ButtonsClick):
         self.window = uic.loadUi('qt_designer/test.ui', self)
         self.window.setWindowTitle('Проверка скорости')
 
-        self.timer = QTimer(self)
         self.timer.timeout.connect(self.showTime)
 
         count_str = cursor.execute('SELECT COUNT(1) '
@@ -197,10 +219,14 @@ class ResultTyping(QtWidgets.QMainWindow):
             self.time_typing % 60, 'секунд'),
 
         self.window.time.setText(f'{minutes} {second}')
-        self.window.speed.setText(f'{math.ceil(self.symbols // self.time_typing * 60)} симв/мин')
+        self.window.speed.setText(f'{int(self.symbols / self.time_typing * 60)} симв/мин')
         self.window.mistakes.setText(f'{self.user_mistakes}')
-        print(self.user_mistakes, self.symbols)
-        self.window.purity.setText(f'{format((self.symbols - self.user_mistakes) / self.symbols * 100, ".2f")}%')
+        percent = ((self.symbols - self.user_mistakes) / self.symbols - self.user_mistakes / self.symbols) * 100
+        if percent <= 0:
+            self.window.purity.setText('0%')
+        else:
+            self.window.purity.setText(
+                f'{format(((self.symbols - self.user_mistakes) / self.symbols - self.user_mistakes / self.symbols) * 100, ".2f")}%')
         self.show()
 
     def russian_language(self, time, word):
@@ -213,20 +239,41 @@ class ResultTyping(QtWidgets.QMainWindow):
         return time
 
 
-class UserLessons(SwitchBetweenButtons):
+class UserLessons(ButtonsClick):
     def __init__(self, lesson_number, part):
         super().__init__()
-        self.symbols = []
+        self.symbols_user = []
+        self.text = None
+        self.window = None
+        self.text = None
+        self.symbols = None
+        self.count_time = 0
+        self.mistakes = 0
+        self.timer = None
+        self.first_press = 1
+        self.us_lessons = 1
         self.init_ui(lesson_number, part)
 
     def init_ui(self, lesson_number, part):
         super(UserLessons, self).__init__()
         self.window = uic.loadUi('qt_designer/user_lessons.ui', self)
+        main_letters = lessons_letters.get(lesson_number)
+        self.timer.timeout.connect(self.showTime)
+        self.show()
         for i in range(lesson_number):
             for j in range(len(lessons_letters.get(i + 1))):
-                self.symbols.append(lessons_letters.get(i + 1)[j])
+                self.symbols_user.append(lessons_letters.get(i + 1)[j])
+
         if part == 1:
-            print(random.choices((self.symbols), weights=[10, 20000, 10, 10, 10, 20, 10, 10]))
+            self.symbols = 5
+            for i in range(len(self.symbols_user)):
+                if self.symbols_user[i] in main_letters:
+                    self.count_symbols_part_1.append(30)
+                else:
+                    self.count_symbols_part_1.append(10)
+            self.random_letters_part_1(self.count_symbols_part_1)
+            self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
+            self.window.user_text.installEventFilter(self)
         elif part == 2:
             pass
         else:
