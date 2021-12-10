@@ -16,6 +16,7 @@ key_board = ["а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и", "й", "
 first_side = ['Ё', 'Ё', 'Ц', 'У', 'К', 'Е', 'Ф', 'Ы', 'В', 'А', 'П', 'Я', 'Ч', 'С', 'М', 'И', '1', '2', '3', '4', '5']
 additional_characters = {ord('"'): ['Left_Shift', 2], ord(':'): ['Right_Shift', 6], ord(","): ['Right_Shift', '.']}
 lessons_letters = {1: ['ф', 'ы', 'в', 'а', 'о', 'л', 'д', 'ж'], 2: ['п', 'р'], 3: ['к', 'г']}
+special_symb = [16777217, 16777219, 16777220]
 
 
 # conn.close()
@@ -57,13 +58,16 @@ class ButtonsClick(SwitchBetweenButtons):
         self.first_red_button_name = None
         self.first_red_button_color = None
         self.flag = 0
+        self.shift_red = None
+        self.shift_choice = 0
+
     def eventFilter(self, obj, event):
         if obj is self.window.user_text and event.type() == QtCore.QEvent.KeyPress:
             if self.first_press == 1:
                 self.timer.start(1000)
                 self.first_press = 0
             if event.text() == self.text[self.count_pressed]:
-                #  self.window.english.setVisible(True)
+                self.window.english.setVisible(False)
                 self.change_color_button_reverse_green()
                 self.change_color_button_reverse_red(self.flag)
                 self.count_pressed += 1
@@ -86,21 +90,25 @@ class ButtonsClick(SwitchBetweenButtons):
             else:
                 self.window.english.setVisible(False)
                 if event.text():
-                    self.change_color_button_reverse_red(self.flag)
-                    self.mistakes += 1
-                    if event.text() not in key_board and event.text().isalpha():
-                        self.window.english.setVisible(True)
+                    if event.key() in special_symb:
+                        self.change_color_button_red(event.key())
                     else:
-                        self.flag = 1
-                        if self.text[self.count_pressed] in additional_characters:
-                            pass
-                        elif self.text[self.count_pressed].isupper():
-                            pass
-                        elif self.text[self.count_pressed].islower():
-                            if event.text().isupper():
-                                self.change_color_button_red(ord(event.text().upper()), 1)
-                            else:
-                                self.change_color_button_red(ord(event.text().upper()), 0)
+                        self.change_color_button_reverse_red(self.flag)
+                        self.mistakes += 1
+                        if event.text().lower() not in key_board and event.text().isalpha():
+                            self.window.english.setVisible(True)
+                        else:
+                            self.flag = 1
+                            if self.text[self.count_pressed] in additional_characters:
+                                pass
+                            elif self.text[self.count_pressed].isupper():
+                                pass
+                            elif self.text[self.count_pressed].islower():
+                                if event.text().isupper():
+                                    if event.text().lower() == self.text[self.count_pressed]:
+                                        self.change_color_button_red(event.text().upper())
+                                else:
+                                    self.change_color_button_red(event.text().upper())
                 return True
         return False
 
@@ -134,12 +142,15 @@ class ButtonsClick(SwitchBetweenButtons):
             self.window.Right_Shift.setStyleSheet(f"background-color: {self.dop_button_color}")
         self.shift = 0
 
-    def change_color_button_red(self, number_button, shift):
-        self.first_red_button_name = 'pushButton_' + str(number_button)
+    def change_color_button_red(self, button):
+        button = str(button)
+        if button.isdigit():
+            self.first_red_button_name = 'pushButton_' + str(button)
+        else:
+            self.first_red_button_name = 'pushButton_' + str(ord(button))
         self.first_red_button_color = self.window.findChild(QPushButton,
                                                             self.first_red_button_name).palette().button().color().name()
-        self.window.findChild(QPushButton, self.first_red_button_name).setStyleSheet(
-            f"background-color: red")
+        self.window.findChild(QPushButton, self.first_red_button_name).setStyleSheet(f"background-color: red")
 
     def change_color_button_reverse_red(self, flag):
         if flag == 0:

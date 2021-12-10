@@ -881,7 +881,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="BackSpace">
+           <widget class="QPushButton" name="pushButton_16777219">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -947,7 +947,7 @@ border-color: blue;</string>
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="Tab">
+           <widget class="QPushButton" name="pushButton_16777217">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1424,7 +1424,7 @@ border-color: blue;</string>
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="Caps">
+           <widget class="QPushButton" name="pushButton_1072">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1808,7 +1808,7 @@ border-color: blue;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="Enter">
+           <widget class="QPushButton" name="pushButton_16777220">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
