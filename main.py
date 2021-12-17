@@ -69,7 +69,7 @@ class ButtonsClick(SwitchBetweenButtons):
             if event.text() == self.text[self.count_pressed]:
                 self.window.english.setVisible(False)
                 self.change_color_button_reverse_green()
-                self.change_color_button_reverse_red(self.flag)
+                self.change_color_button_reverse_red()
                 self.count_pressed += 1
                 if self.count_pressed >= self.symbols:
                     if self.us_lessons == 1:
@@ -90,15 +90,15 @@ class ButtonsClick(SwitchBetweenButtons):
             else:
                 self.window.english.setVisible(False)
                 if event.text():
+                    self.change_color_button_reverse_red()
                     if event.key() in special_symb:
+                        self.flag = 1
                         self.change_color_button_red(event.key())
                     else:
-                        self.change_color_button_reverse_red(self.flag)
                         self.mistakes += 1
                         if event.text().lower() not in key_board and event.text().isalpha():
                             self.window.english.setVisible(True)
                         else:
-                            self.flag = 1
                             if self.text[self.count_pressed] in additional_characters:
                                 pass
                             elif self.text[self.count_pressed].isupper():
@@ -106,8 +106,9 @@ class ButtonsClick(SwitchBetweenButtons):
                             elif self.text[self.count_pressed].islower():
                                 if event.text().isupper():
                                     if event.text().lower() == self.text[self.count_pressed]:
-                                        self.change_color_button_red(event.text().upper())
+                                        self.change_shift_red(event.text().upper())
                                 else:
+                                    self.flag = 1
                                     self.change_color_button_red(event.text().upper())
                 return True
         return False
@@ -143,8 +144,7 @@ class ButtonsClick(SwitchBetweenButtons):
         self.shift = 0
 
     def change_color_button_red(self, button):
-        button = str(button)
-        if button.isdigit():
+        if button in special_symb:
             self.first_red_button_name = 'pushButton_' + str(button)
         else:
             self.first_red_button_name = 'pushButton_' + str(ord(button))
@@ -152,12 +152,13 @@ class ButtonsClick(SwitchBetweenButtons):
                                                             self.first_red_button_name).palette().button().color().name()
         self.window.findChild(QPushButton, self.first_red_button_name).setStyleSheet(f"background-color: red")
 
-    def change_color_button_reverse_red(self, flag):
-        if flag == 0:
+    def change_color_button_reverse_red(self):
+        if self.flag == 0:
             pass
         else:
             self.window.findChild(QPushButton, self.first_red_button_name).setStyleSheet(
                 f"background-color: {self.first_red_button_color}")
+            self.flag = 0
 
     def showTime(self):
         self.count_time += 1
