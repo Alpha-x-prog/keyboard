@@ -58,8 +58,10 @@ class ButtonsClick(SwitchBetweenButtons):
         self.first_red_button_name = None
         self.first_red_button_color = None
         self.flag = 0
-        self.shift_red = None
-        self.shift_choice = 0
+        self.us_lessons = 0
+        self.shift_flag = 0
+        self.shift_name = None
+        self.shift_color = None
 
     def eventFilter(self, obj, event):
         if obj is self.window.user_text and event.type() == QtCore.QEvent.KeyPress:
@@ -70,6 +72,7 @@ class ButtonsClick(SwitchBetweenButtons):
                 self.window.english.setVisible(False)
                 self.change_color_button_reverse_green()
                 self.change_color_button_reverse_red()
+                self.change_shift_reverse_red()
                 self.count_pressed += 1
                 if self.count_pressed >= self.symbols:
                     if self.us_lessons == 1:
@@ -91,6 +94,8 @@ class ButtonsClick(SwitchBetweenButtons):
                 self.window.english.setVisible(False)
                 if event.text():
                     self.change_color_button_reverse_red()
+                    self.change_shift_reverse_red()
+                    self.change_color_button_reverse_red()
                     if event.key() in special_symb:
                         self.flag = 1
                         self.change_color_button_red(event.key())
@@ -107,6 +112,7 @@ class ButtonsClick(SwitchBetweenButtons):
                                 if event.text().isupper():
                                     if event.text().lower() == self.text[self.count_pressed]:
                                         self.change_shift_red(event.text().upper())
+
                                 else:
                                     self.flag = 1
                                     self.change_color_button_red(event.text().upper())
@@ -159,6 +165,23 @@ class ButtonsClick(SwitchBetweenButtons):
             self.window.findChild(QPushButton, self.first_red_button_name).setStyleSheet(
                 f"background-color: {self.first_red_button_color}")
             self.flag = 0
+
+    def change_shift_red(self, button):
+        if button not in first_side:
+            self.shift_name = 'Left_Shift'
+        else:
+            self.shift_name = 'Right_Shift'
+        self.shift_color = self.window.findChild(QPushButton,
+                                                 self.shift_name).palette().button().color().name()
+        self.window.findChild(QPushButton, self.shift_name).setStyleSheet(f"background-color: red")
+
+    def change_shift_reverse_red(self):
+        if self.shift_flag == 0:
+            pass
+        else:
+            self.window.findChild(QPushButton, self.shift_name).setStyleSheet(
+                f"background-color: {self.shift_color}")
+            self.shift_flag = 0
 
     def showTime(self):
         self.count_time += 1
