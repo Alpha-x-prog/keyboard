@@ -107,12 +107,20 @@ class ButtonsClick(SwitchBetweenButtons):
                             if self.text[self.count_pressed] in additional_characters:
                                 pass
                             elif self.text[self.count_pressed].isupper():
-                                pass
+                                if event.text().islower():
+                                    if event.text() != self.text[self.count_pressed].lower():
+                                        self.flag = 1
+                                        self.change_color_button_red(event.text().upper())
+                                else:
+                                    self.flag = 1
+                                    self.change_color_button_red(event.text().upper())
                             elif self.text[self.count_pressed].islower():
                                 if event.text().isupper():
-                                    if event.text().lower() == self.text[self.count_pressed]:
-                                        self.change_shift_red(event.text().upper())
-
+                                    self.shift_flag = 1
+                                    self.change_shift_red(event.text().upper())
+                                    if event.text().lower() != self.text[self.count_pressed]:
+                                        self.flag = 1
+                                        self.change_color_button_red(event.text().upper())
                                 else:
                                     self.flag = 1
                                     self.change_color_button_red(event.text().upper())
@@ -290,12 +298,12 @@ class ResultTyping(QtWidgets.QMainWindow):
         self.window.time.setText(f'{minutes} {second}')
         self.window.speed.setText(f'{int(self.symbols / self.time_typing * 60)} симв/мин')
         self.window.mistakes.setText(f'{self.user_mistakes}')
-        percent = ((self.symbols - self.user_mistakes) / self.symbols - self.user_mistakes / self.symbols) * 100
+        percent = ((self.symbols - self.user_mistakes) / self.symbols) * 100
         if percent <= 0:
             self.window.purity.setText('0%')
         else:
             self.window.purity.setText(
-                f'{format(((self.symbols - self.user_mistakes) / self.symbols - self.user_mistakes / self.symbols) * 100, ".2f")}%')
+                f'{format(((self.symbols - self.user_mistakes) / self.symbols) * 100, ".2f")}%')
         self.show()
 
     def russian_language(self, time, word):
