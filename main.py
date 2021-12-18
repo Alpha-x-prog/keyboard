@@ -58,7 +58,6 @@ class ButtonsClick(SwitchBetweenButtons):
         self.first_red_button_name = None
         self.first_red_button_color = None
         self.flag = 0
-        self.us_lessons = 0
         self.shift_flag = 0
         self.shift_name = None
         self.shift_color = None
@@ -76,8 +75,15 @@ class ButtonsClick(SwitchBetweenButtons):
                 self.count_pressed += 1
                 if self.count_pressed >= self.symbols:
                     if self.us_lessons == 1:
-                        if self.count_user_number_lesson == 3:
-                            pass
+                        if self.count_user_number_lesson == 1:
+                            self.window.my_result.setVisible(True)
+                            a = ['times', 'speed', 'percent_text', 'count_mistakes']
+                            for i in range(4):
+                                self.window.findChild(QLabel, a[i]).setVisible(True)
+                                self.window.findChild(QLabel, str(a[i])+'_result').setVisible(True)
+                            self.window.user_text.deleteLater()
+                            self.window.for_text.setVisible(False)
+                            self.timer.stop()
                         else:
                             self.count_pressed = 0
                             self.random_letters_part_1(self.count_symbols_part_1)
@@ -106,6 +112,15 @@ class ButtonsClick(SwitchBetweenButtons):
                         else:
                             if self.text[self.count_pressed] in additional_characters:
                                 pass
+                            elif self.text[self.count_pressed] == " ":
+                                if event.text().isupper():
+                                    self.shift_flag = 1
+                                    self.change_shift_red(event.text().upper())
+                                    self.flag = 1
+                                    self.change_color_button_red(event.text().upper())
+                                else:
+                                    self.flag = 1
+                                    self.change_color_button_red(event.text().upper())
                             elif self.text[self.count_pressed].isupper():
                                 if event.text().islower():
                                     if event.text() != self.text[self.count_pressed].lower():
@@ -336,6 +351,12 @@ class UserLessons(ButtonsClick):
         self.window = uic.loadUi('qt_designer/user_lessons.ui', self)
         main_letters = lessons_letters.get(lesson_number)
         self.timer.timeout.connect(self.showTime)
+        self.window.english.setVisible(False)
+        self.window.my_result.setVisible(False)
+        a = ['times', 'speed', 'percent_text', 'count_mistakes']
+        for i in range(4):
+            self.window.findChild(QLabel, a[i]).setVisible(False)
+            self.window.findChild(QLabel, str(a[i])+'_result').setVisible(False)
         self.show()
         for i in range(lesson_number):
             for j in range(len(lessons_letters.get(i + 1))):
