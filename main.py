@@ -61,6 +61,7 @@ class ButtonsClick(SwitchBetweenButtons):
         self.shift_flag = 0
         self.shift_name = None
         self.shift_color = None
+        self.mistakes = 0
 
     def eventFilter(self, obj, event):
         if obj is self.window.user_text and event.type() == QtCore.QEvent.KeyPress:
@@ -80,10 +81,11 @@ class ButtonsClick(SwitchBetweenButtons):
                             a = ['times', 'speed', 'percent_text', 'count_mistakes']
                             for i in range(4):
                                 self.window.findChild(QLabel, a[i]).setVisible(True)
-                                self.window.findChild(QLabel, str(a[i])+'_result').setVisible(True)
+                                self.window.findChild(QLabel, str(a[i]) + '_result').setVisible(True)
                             self.window.user_text.deleteLater()
                             self.window.for_text.setVisible(False)
                             self.timer.stop()
+                            self.count_result(self.count_time, self.mistakes, self.symbols)
                         else:
                             self.count_pressed = 0
                             self.random_letters_part_1(self.count_symbols_part_1)
@@ -218,6 +220,30 @@ class ButtonsClick(SwitchBetweenButtons):
         self.window.for_text.setPlainText(text)
         self.window.user_text.setPlainText("")
 
+    def count_result(self, time, mistakes, symbols):
+        print("1")
+        minutes, second = self.russian_language(time // 60, 'минут'), self.russian_language(
+            time % 60, 'секунд')
+        print("2")
+        self.window.times_result.setText(f'{minutes} {second}')
+        self.window.speed_result.setText(f'{int(symbols / time * 60)} симв/мин')
+        self.window.count_mistakes_result.setText(f'{mistakes}')
+        percent = ((symbols - mistakes) / symbols) * 100
+        if percent <= 0:
+            self.window.percent_text_result.setText('0%')
+        else:
+            self.window.percent_text_result.setText(
+                f'{format(((symbols - mistakes) / symbols) * 100, ".2f")}%')
+
+    def russian_language(self, time, word):
+        if time == 0 or time >= 5:
+            time = str(str(time) + str(f" {word}"))
+        elif time == 1:
+            time = str(str(time) + str(f" {word}а"))
+        else:
+            time = str(str(time) + str(f" {word}ы"))
+        return time
+
 
 class FirstWindow(SwitchBetweenButtons):
     def __init__(self):
@@ -269,7 +295,6 @@ class Test(ButtonsClick):
         self.text = None
         self.symbols = None
         self.count_time = 0
-        self.mistakes = 0
         self.timer = None
         self.first_press = 1
         self.us_lessons = 0
@@ -295,7 +320,7 @@ class Test(ButtonsClick):
         self.window.user_text.installEventFilter(self)
 
 
-class ResultTyping(QtWidgets.QMainWindow):
+class ResultTyping(ButtonsClick):
     def __init__(self, time, mistakes, symbols):
         super().__init__()
         self.window = None
@@ -307,28 +332,8 @@ class ResultTyping(QtWidgets.QMainWindow):
     def init_ui(self):
         super(ResultTyping, self).__init__()
         self.window = uic.loadUi('qt_designer/result_test.ui', self)
-        minutes, second = self.russian_language(self.time_typing // 60, 'минут'), self.russian_language(
-            self.time_typing % 60, 'секунд'),
-
-        self.window.time.setText(f'{minutes} {second}')
-        self.window.speed.setText(f'{int(self.symbols / self.time_typing * 60)} симв/мин')
-        self.window.mistakes.setText(f'{self.user_mistakes}')
-        percent = ((self.symbols - self.user_mistakes) / self.symbols) * 100
-        if percent <= 0:
-            self.window.purity.setText('0%')
-        else:
-            self.window.purity.setText(
-                f'{format(((self.symbols - self.user_mistakes) / self.symbols) * 100, ".2f")}%')
+        self.count_result(self.time_typing, self.user_mistakes, self.symbols)
         self.show()
-
-    def russian_language(self, time, word):
-        if time == 0 or time >= 5:
-            time = str(str(time) + str(f" {word}"))
-        elif time == 1:
-            time = str(str(time) + str(f" {word}а"))
-        else:
-            time = str(str(time) + str(f" {word}ы"))
-        return time
 
 
 class UserLessons(ButtonsClick):
@@ -344,19 +349,20 @@ class UserLessons(ButtonsClick):
         self.timer = None
         self.first_press = 1
         self.us_lessons = 1
-        self.init_ui(lesson_number, part)
+        self.init_UI(lesson_number, part)
 
-    def init_ui(self, lesson_number, part):
+    def init_UI(self, lesson_number, part):
         super(UserLessons, self).__init__()
         self.window = uic.loadUi('qt_designer/user_lessons.ui', self)
         main_letters = lessons_letters.get(lesson_number)
         self.timer.timeout.connect(self.showTime)
         self.window.english.setVisible(False)
         self.window.my_result.setVisible(False)
+        self.window.name_lesson.setText(f'Урок {lesson_number} часть {part}')
         a = ['times', 'speed', 'percent_text', 'count_mistakes']
         for i in range(4):
             self.window.findChild(QLabel, a[i]).setVisible(False)
-            self.window.findChild(QLabel, str(a[i])+'_result').setVisible(False)
+            self.window.findChild(QLabel, str(a[i]) + '_result').setVisible(False)
         self.show()
         for i in range(lesson_number):
             for j in range(len(lessons_letters.get(i + 1))):

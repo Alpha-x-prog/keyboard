@@ -767,10 +767,27 @@ color: rgb(255, 255, 255);</string>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
+           <widget class="QLabel" name="name_lesson">
+            <property name="font">
+             <font>
+              <pointsize>20</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QLabel" name="my_result">
             <property name="font">
              <font>
-              <pointsize>15</pointsize>
+              <pointsize>25</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -808,6 +825,11 @@ color: rgb(255, 255, 255);</string>
               </property>
               <item row="0" column="0">
                <widget class="QLabel" name="times">
+                <property name="font">
+                 <font>
+                  <pointsize>18</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Время</string>
                 </property>
@@ -815,6 +837,11 @@ color: rgb(255, 255, 255);</string>
               </item>
               <item row="0" column="1">
                <widget class="QLabel" name="times_result">
+                <property name="font">
+                 <font>
+                  <pointsize>18</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>x</string>
                 </property>
@@ -822,6 +849,11 @@ color: rgb(255, 255, 255);</string>
               </item>
               <item row="1" column="0">
                <widget class="QLabel" name="speed">
+                <property name="font">
+                 <font>
+                  <pointsize>18</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Скорость</string>
                 </property>
@@ -829,6 +861,11 @@ color: rgb(255, 255, 255);</string>
               </item>
               <item row="1" column="1">
                <widget class="QLabel" name="speed_result">
+                <property name="font">
+                 <font>
+                  <pointsize>18</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>x</string>
                 </property>
@@ -836,6 +873,11 @@ color: rgb(255, 255, 255);</string>
               </item>
               <item row="2" column="0">
                <widget class="QLabel" name="count_mistakes">
+                <property name="font">
+                 <font>
+                  <pointsize>18</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Количество ошибок</string>
                 </property>
@@ -843,6 +885,11 @@ color: rgb(255, 255, 255);</string>
               </item>
               <item row="2" column="1">
                <widget class="QLabel" name="count_mistakes_result">
+                <property name="font">
+                 <font>
+                  <pointsize>18</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>x</string>
                 </property>
@@ -850,6 +897,11 @@ color: rgb(255, 255, 255);</string>
               </item>
               <item row="3" column="0">
                <widget class="QLabel" name="percent_text">
+                <property name="font">
+                 <font>
+                  <pointsize>18</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Процент чистоты текста</string>
                 </property>
@@ -857,6 +909,11 @@ color: rgb(255, 255, 255);</string>
               </item>
               <item row="3" column="1">
                <widget class="QLabel" name="percent_text_result">
+                <property name="font">
+                 <font>
+                  <pointsize>18</pointsize>
+                 </font>
+                </property>
                 <property name="text">
                  <string>x</string>
                 </property>
