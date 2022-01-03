@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1666</width>
-    <height>1012</height>
+    <width>1690</width>
+    <height>943</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -958,7 +958,7 @@ color: rgb(255, 255, 255);</string>
               </property>
               <property name="minimumSize">
                <size>
-                <width>1000</width>
+                <width>700</width>
                 <height>40</height>
                </size>
               </property>
@@ -1021,7 +1021,7 @@ border-color: blue;</string>
              <widget class="QPlainTextEdit" name="user_text">
               <property name="minimumSize">
                <size>
-                <width>1000</width>
+                <width>700</width>
                 <height>80</height>
                </size>
               </property>
@@ -3114,7 +3114,7 @@ border-color: blue;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1666</width>
+     <width>1690</width>
      <height>21</height>
     </rect>
    </property>

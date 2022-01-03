@@ -8,6 +8,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import math
 import tkinter as tk
+import requests
 
 conn = sqlite3.connect('base_date/base.db')
 cursor = conn.cursor()
@@ -65,7 +66,7 @@ class ButtonsClick(SwitchBetweenButtons):
         self.count_pressed = 0
         self.count_user_number_lesson = 1
         self.timer = QTimer(self)
-        self.count_symbols_part_1 = []
+        self.symbols_for_text = []
         self.first_red_button_name = None
         self.first_red_button_color = None
         self.flag = 0
@@ -87,22 +88,9 @@ class ButtonsClick(SwitchBetweenButtons):
                 self.count_pressed += 1
                 if self.count_pressed >= self.symbols:
                     if self.us_lessons == 1:
-                        if self.count_user_number_lesson == 3:
-                            self.window.my_result.setVisible(True)
-                            a = ['times', 'speed', 'percent_text', 'count_mistakes']
-                            for i in range(4):
-                                self.window.findChild(QLabel, a[i]).setVisible(True)
-                                self.window.findChild(QLabel, str(a[i]) + '_result').setVisible(True)
-                            self.window.user_text.deleteLater()
-                            self.window.for_text.setVisible(False)
-                            self.timer.stop()
-                            self.count_result(self.count_time, self.mistakes, self.symbols)
-                            self.count_user_number_lesson = 1
-                        else:
-                            self.count_pressed = 0
-                            self.random_letters_part_1(self.count_symbols_part_1)
-                            self.count_user_number_lesson += 1
-                            return True
+                        return self.lesson_repeat(1)
+                    elif self.us_lessons == 2:
+                        return self.lesson_repeat(2)
                     else:
                         self.result_typ = ResultTyping(self.count_time, self.mistakes, self.symbols)
                         self.result_typ.show()
@@ -233,6 +221,17 @@ class ButtonsClick(SwitchBetweenButtons):
         self.window.for_text.setPlainText(text)
         self.window.user_text.setPlainText("")
 
+    def random_letters_part_2(self, a):
+        text = ""
+        while len(text) < 30:
+            for i in range(random.randint(2, 5)):
+                text += str(random.choices(self.symbols_user, weights=a)[0])
+            text += ' '
+        self.text = text
+        self.symbols = len(self.text)
+        self.window.for_text.setPlainText(text)
+        self.window.user_text.setPlainText("")
+
     def count_result(self, time, mistakes, symbols):
         minutes, second = self.russian_language(time // 60, 'минут'), self.russian_language(
             time % 60, 'секунд')
@@ -254,6 +253,30 @@ class ButtonsClick(SwitchBetweenButtons):
         else:
             time = str(str(time) + str(f" {word}ы"))
         return time
+
+    def lesson_repeat(self, number):
+        if self.count_user_number_lesson == 3:
+            self.window.my_result.setVisible(True)
+            a = ['times', 'speed', 'percent_text', 'count_mistakes']
+            for i in range(4):
+                self.window.findChild(QLabel, a[i]).setVisible(True)
+                self.window.findChild(QLabel, str(a[i]) + '_result').setVisible(True)
+            self.window.user_text.deleteLater()
+            self.window.for_text.setVisible(False)
+            self.timer.stop()
+            self.count_result(self.count_time, self.mistakes, self.symbols)
+            self.count_user_number_lesson = 1
+            return False
+        else:
+            self.count_pressed = 0
+            if number == 1:
+                self.random_letters_part_1(self.symbols_for_text)
+            elif number == 2:
+                self.random_letters_part_2(self.symbols_for_text)
+            else:
+                pass
+            self.count_user_number_lesson += 1
+            return True
 
 
 class FirstWindow(SwitchBetweenButtons):
@@ -366,7 +389,7 @@ class UserLessons(ButtonsClick):
         self.mistakes = 0
         self.timer = None
         self.first_press = 1
-        self.us_lessons = 1
+        self.us_lessons = None
         self.init_UI(lesson_number, part)
 
     def init_UI(self, lesson_number, part):
@@ -390,28 +413,31 @@ class UserLessons(ButtonsClick):
                 self.symbols_user.append(lessons_letters.get(i + 1)[j])
 
         if part == 1:
+            self.us_lessons = 1
             self.symbols = 20
             for i in range(len(self.symbols_user)):
                 if self.symbols_user[i] in main_letters:
-                    self.count_symbols_part_1.append(30)
+                    self.symbols_for_text.append(30)
                 else:
-                    self.count_symbols_part_1.append(10)
-            self.random_letters_part_1(self.count_symbols_part_1)
+                    self.symbols_for_text.append(10)
+            self.random_letters_part_1(self.symbols_for_text)
             self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
             self.window.user_text.installEventFilter(self)
         elif part == 2:
-            self.symbols = 10
+            self.us_lessons = 2
             for i in range(len(self.symbols_user)):
                 if self.symbols_user[i] in main_letters:
-                    self.count_symbols_part_1.append(30)
+                    self.symbols_for_text.append(30)
                 else:
-                    self.count_symbols_part_1.append(10)
-        #    self.random_letters_part_2(self.count_symbols_part_1)
-        #   self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
-        #   self.window.user_text.installEventFilter(self)
-        else:
-            pass
-        #  self.window.for_text.setPlainText("".join(self.symbols[::]))
+                    self.symbols_for_text.append(10)
+            self.random_letters_part_2(self.symbols_for_text)
+            self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
+            self.window.user_text.installEventFilter(self)
+        elif part == 3:
+            f = open('words/russian.txt')
+            for line in f:
+                pass
+            print("stop")
         for i in range(3):
             self.window.findChild(QComboBox, str('lesson_' + str((i + 1)))).activated[str].connect(self.number_lesson)
 
