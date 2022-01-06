@@ -8,7 +8,6 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import math
 import tkinter as tk
-import requests
 
 conn = sqlite3.connect('base_date/base.db')
 cursor = conn.cursor()
@@ -89,7 +88,6 @@ class ButtonsClick(SwitchBetweenButtons):
                 self.change_color_button_reverse_red()
                 self.change_shift_reverse_red()
                 self.count_pressed += 1
-                print(0)
                 if self.count_pressed >= self.symbols:
                     if self.us_lessons == 1:
                         return self.lesson_repeat(1)
@@ -252,7 +250,20 @@ class ButtonsClick(SwitchBetweenButtons):
         self.window.user_text.setPlainText("")
         f.close()
 
-    def count_result(self, time, mistakes, symbols):
+    def table_result(self, view, time, mistakes, symbols, percent):
+        max_id = cursor.execute('SELECT MAX(id) '
+                                'FROM history').fetchone()[0]
+        if max_id is None:
+            max_id = 1
+        else:
+            max_id += 1
+        cursor.execute('INSERT INTO history '
+                       '(id, view, time, mistakes, symbols, clean_text) '
+                       f'VALUES ({max_id}, "{view}", {time}, {mistakes}, {symbols}, {percent})')
+        conn.commit()
+
+    def count_result(self, time, mistakes, symbols, view):
+        symbols *= 3
         minutes, second = self.russian_language(time // 60, 'минут'), self.russian_language(
             time % 60, 'секунд')
         self.window.times_result.setText(f'{minutes} {second}')
@@ -261,9 +272,12 @@ class ButtonsClick(SwitchBetweenButtons):
         percent = ((symbols - mistakes) / symbols) * 100
         if percent <= 0:
             self.window.percent_text_result.setText('0%')
+            percent = 0
         else:
             self.window.percent_text_result.setText(
                 f'{format(((symbols - mistakes) / symbols) * 100, ".2f")}%')
+            percent = f'{format(percent, ".2f")}'
+        self.table_result(view, time, mistakes, symbols, percent)
 
     def russian_language(self, time, word):
         if time == 0 or time >= 5:
@@ -284,7 +298,7 @@ class ButtonsClick(SwitchBetweenButtons):
             self.window.user_text.deleteLater()
             self.window.for_text.setVisible(False)
             self.timer.stop()
-            self.count_result(self.count_time, self.mistakes, self.symbols)
+            self.count_result(self.count_time, self.mistakes, self.symbols, 'lesson')
             self.count_user_number_lesson = 1
             return False
         else:
@@ -390,7 +404,7 @@ class ResultTyping(ButtonsClick):
     def init_ui(self):
         super(ResultTyping, self).__init__()
         self.window = uic.loadUi('qt_designer/result_test.ui', self)
-        self.count_result(self.time_typing, self.user_mistakes, self.symbols)
+        self.count_result(self.time_typing, self.user_mistakes, self.symbols, "text")
         self.window.btn_testing.clicked.connect(self.testing)
         self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 1))
         self.window.btn_informational.clicked.connect(self.info)
