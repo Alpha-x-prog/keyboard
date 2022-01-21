@@ -52,6 +52,11 @@ class SwitchBetweenButtons(QtWidgets.QMainWindow):
         self.general_window.show()
         self.close()
 
+    def prof(self):
+        self.profile = Profile()
+        self.profile.show()
+        self.close()
+
 
 class ButtonsClick(SwitchBetweenButtons):
     def __init__(self):
@@ -96,7 +101,7 @@ class ButtonsClick(SwitchBetweenButtons):
                     elif self.us_lessons == 3:
                         return self.lesson_repeat(3)
                     else:
-                        self.result_typ = ResultTyping(self.count_time, self.mistakes, self.symbols)
+                        self.result_typ = ResultTyping(self.count_time, self.mistakes, self.symbols * 3)
                         self.result_typ.show()
                         self.timer.stop()
                         self.close()
@@ -219,7 +224,7 @@ class ButtonsClick(SwitchBetweenButtons):
 
     def random_letters_part_1(self, a):
         text = ""
-        for j in range(10):
+        for j in range(26):
             text += str(random.choices(self.symbols_user, weights=a)[0]) + " "
         self.text = text
         self.symbols = len(text) - 1
@@ -228,8 +233,8 @@ class ButtonsClick(SwitchBetweenButtons):
 
     def random_letters_part_2(self, a):
         text = ""
-        while len(text) < 30:
-            for i in range(random.randint(2, 5)):
+        while len(text) < 40:
+            for i in range(random.randint(3, 6)):
                 text += str(random.choices(self.symbols_user, weights=a)[0])
             text += ' '
         self.text = text
@@ -242,7 +247,7 @@ class ButtonsClick(SwitchBetweenButtons):
         lines = f.readlines()
         words = []
         len_lesson_word = len(lines) - 1
-        while len(' '.join(words)) <= 20:
+        while len(' '.join(words)) <= 35:
             words.append(lines[random.randint(0, len_lesson_word)].strip())
         self.text = ' '.join(words)
         self.symbols = len(self.text)
@@ -353,6 +358,7 @@ class GeneralWindow(SwitchBetweenButtons):
         self.window.btn_testing.clicked.connect(self.testing)
         self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 1))
         self.window.btn_informational.clicked.connect(self.info)
+        self.window.btn_profile.clicked.connect(self.prof)
         self.show()
 
 
@@ -387,6 +393,7 @@ class Test(ButtonsClick):
         self.window.btn_testing.clicked.connect(self.testing)
         self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 1))
         self.window.btn_informational.clicked.connect(self.info)
+        self.window.btn_profile.clicked.connect(self.prof)
         self.show()
         self.change_color_button_green(ord(self.text[self.count_pressed]))
         self.window.user_text.installEventFilter(self)
@@ -408,6 +415,7 @@ class ResultTyping(ButtonsClick):
         self.window.btn_testing.clicked.connect(self.testing)
         self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 1))
         self.window.btn_informational.clicked.connect(self.info)
+        self.window.btn_profile.clicked.connect(self.prof)
         self.show()
 
 
@@ -435,6 +443,7 @@ class UserLessons(ButtonsClick):
         self.window.btn_testing.clicked.connect(self.testing)
         self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 1))
         self.window.btn_informational.clicked.connect(self.info)
+        self.window.btn_profile.clicked.connect(self.prof)
         self.window.english.setVisible(False)
         self.window.my_result.setVisible(False)
         self.window.name_lesson.setText(f'Урок {self.lesson_number} часть {part}')
@@ -480,6 +489,19 @@ class UserLessons(ButtonsClick):
         else:
             part_lesson = 3
         self.lessons(int(changed_text_box[changed_text_box.rfind(" ") - 2]), part_lesson)
+
+
+class Profile(ButtonsClick):
+    def __init__(self):
+        super().__init__()
+        self.window = None
+        self.init_ui()
+
+    def init_ui(self):
+        super(Profile, self).__init__()
+        self.window = uic.loadUi('qt_designer/profile.ui', self)
+        self.window.setWindowTitle('Профиль')
+        self.show()
 
 
 if __name__ == '__main__':
