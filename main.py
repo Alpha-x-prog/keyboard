@@ -101,7 +101,8 @@ class ButtonsClick(SwitchBetweenButtons):
                     elif self.us_lessons == 3:
                         return self.lesson_repeat(3)
                     else:
-                        self.result_typ = ResultTyping(self.count_time, self.mistakes, self.symbols * 3)
+
+                        self.result_typ = ResultTyping(self.count_time, self.mistakes, self.symbols)
                         self.result_typ.show()
                         self.timer.stop()
                         self.close()
@@ -247,7 +248,7 @@ class ButtonsClick(SwitchBetweenButtons):
         lines = f.readlines()
         words = []
         len_lesson_word = len(lines) - 1
-        while len(' '.join(words)) <= 35:
+        while len(' '.join(words)) <= 20:
             words.append(lines[random.randint(0, len_lesson_word)].strip())
         self.text = ' '.join(words)
         self.symbols = len(self.text)
@@ -268,7 +269,8 @@ class ButtonsClick(SwitchBetweenButtons):
         conn.commit()
 
     def count_result(self, time, mistakes, symbols, view):
-        symbols *= 3
+        if view == "lesson":
+            symbols *= 3
         minutes, second = self.russian_language(time // 60, 'минут'), self.russian_language(
             time % 60, 'секунд')
         self.window.times_result.setText(f'{minutes} {second}')
@@ -387,7 +389,7 @@ class Test(ButtonsClick):
         id_text = random.randint(1, count_str)
         self.text, self.symbols = cursor.execute('SELECT text, symbols '
                                                  'FROM texts '
-                                                 'WHERE id = ?', (id_text,)).fetchone()
+                                                 'WHERE id = ?', (5,)).fetchone() # текст
         self.window.for_text.setPlainText(self.text)
         self.window.english.setVisible(False)
         self.window.btn_testing.clicked.connect(self.testing)
@@ -405,13 +407,15 @@ class ResultTyping(ButtonsClick):
         self.window = None
         self.time_typing = time
         self.user_mistakes = mistakes
-        self.symbols = symbols
+        self.symbols_text = symbols
         self.init_ui()
 
     def init_ui(self):
         super(ResultTyping, self).__init__()
         self.window = uic.loadUi('qt_designer/result_test.ui', self)
-        self.count_result(self.time_typing, self.user_mistakes, self.symbols, "text")
+        print(self.time_typing, self.user_mistakes, self.symbols_text, "text")
+        self.count_result(self.time_typing, self.user_mistakes, self.symbols_text, "text")
+
         self.window.btn_testing.clicked.connect(self.testing)
         self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 1))
         self.window.btn_informational.clicked.connect(self.info)
