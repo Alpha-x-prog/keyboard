@@ -28,7 +28,7 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(15, 255, 255);</string>
+   <string notr="true">background-color: rgb(0, 0, 0);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -76,8 +76,7 @@
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: qlineargradient(spread:pad, x1:0.045, y1:0.761364, x2:1, y2:0, stop:0.186441 rgba(0, 37, 170, 255), stop:1 rgba(255, 255, 255, 255));
-color: rgb(255, 255, 255);</string>
+         <string notr="true">background-color: rgb(134, 110, 255);</string>
         </property>
         <property name="text">
          <string>Информация</string>
@@ -110,8 +109,7 @@ color: rgb(255, 255, 255);</string>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: qlineargradient(spread:pad, x1:0.045, y1:0.761364, x2:1, y2:0, stop:0.186441 rgba(0, 37, 170, 255), stop:1 rgba(255, 255, 255, 255));
-color: rgb(255, 255, 255);</string>
+         <string notr="true">background-color: rgb(134, 110, 255);</string>
         </property>
         <property name="text">
          <string>Уроки</string>
@@ -144,8 +142,7 @@ color: rgb(255, 255, 255);</string>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: qlineargradient(spread:pad, x1:0.045, y1:0.761364, x2:1, y2:0, stop:0.186441 rgba(0, 37, 170, 255), stop:1 rgba(255, 255, 255, 255));
-color: rgb(255, 255, 255);</string>
+         <string notr="true">background-color: rgb(134, 110, 255);</string>
         </property>
         <property name="text">
          <string>Тестирование</string>
@@ -178,8 +175,7 @@ color: rgb(255, 255, 255);</string>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: qlineargradient(spread:pad, x1:0.045, y1:0.761364, x2:1, y2:0, stop:0.186441 rgba(0, 37, 170, 255), stop:1 rgba(255, 255, 255, 255));
-color: rgb(255, 255, 255);</string>
+         <string notr="true">background-color: rgb(134, 110, 255);</string>
         </property>
         <property name="text">
          <string>Профиль</string>
@@ -302,6 +298,9 @@ color: rgb(255, 255, 255);</string>
             <pointsize>10</pointsize>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(19, 204, 255);</string>
+          </property>
           <item>
            <property name="text">
             <string>Урок 1</string>
@@ -348,6 +347,9 @@ color: rgb(255, 255, 255);</string>
            <font>
             <pointsize>10</pointsize>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(19, 204, 255);</string>
           </property>
           <item>
            <property name="text">
@@ -396,6 +398,9 @@ color: rgb(255, 255, 255);</string>
             <pointsize>10</pointsize>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(19, 204, 255);</string>
+          </property>
           <item>
            <property name="text">
             <string>Урок 3</string>
@@ -442,6 +447,9 @@ color: rgb(255, 255, 255);</string>
            <font>
             <pointsize>10</pointsize>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(19, 204, 255);</string>
           </property>
           <item>
            <property name="text">
@@ -490,6 +498,9 @@ color: rgb(255, 255, 255);</string>
             <pointsize>10</pointsize>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(19, 204, 255);</string>
+          </property>
           <item>
            <property name="text">
             <string>Урок 5</string>
@@ -536,6 +547,9 @@ color: rgb(255, 255, 255);</string>
            <font>
             <pointsize>10</pointsize>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(19, 204, 255);</string>
           </property>
           <item>
            <property name="text">
@@ -584,6 +598,9 @@ color: rgb(255, 255, 255);</string>
             <pointsize>10</pointsize>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(19, 204, 255);</string>
+          </property>
           <item>
            <property name="text">
             <string>Урок 7</string>
@@ -607,7 +624,7 @@ color: rgb(255, 255, 255);</string>
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="lesson_8">
+         <widget class="QComboBox" name="comboBox_8">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -631,19 +648,27 @@ color: rgb(255, 255, 255);</string>
             <pointsize>10</pointsize>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(19, 204, 255);</string>
+          </property>
           <item>
            <property name="text">
-            <string>Урок 8</string>
+            <string>Урок 1</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 8. Цифры-1</string>
+            <string>Урок 1. Буквы</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 8. Цифры-2</string>
+            <string>Урок 1. Клавишы</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Урок 1. Слова</string>
            </property>
           </item>
          </widget>
@@ -673,24 +698,27 @@ color: rgb(255, 255, 255);</string>
             <pointsize>10</pointsize>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(19, 204, 255);</string>
+          </property>
           <item>
            <property name="text">
-            <string>Урок 9</string>
+            <string>Урок 1</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 9. Буквы</string>
+            <string>Урок 1. Буквы</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 9. Клавишы</string>
+            <string>Урок 1. Клавишы</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 9. Слова</string>
+            <string>Урок 1. Слова</string>
            </property>
           </item>
          </widget>
@@ -719,6 +747,9 @@ color: rgb(255, 255, 255);</string>
            <font>
             <pointsize>10</pointsize>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(19, 204, 255);</string>
           </property>
           <item>
            <property name="text">
@@ -770,6 +801,9 @@ color: rgb(255, 255, 255);</string>
               <bold>true</bold>
              </font>
             </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(229, 70, 227);</string>
+            </property>
             <property name="text">
              <string>TextLabel</string>
             </property>
@@ -786,6 +820,9 @@ color: rgb(255, 255, 255);</string>
               <weight>75</weight>
               <bold>true</bold>
              </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(229, 70, 227);</string>
             </property>
             <property name="text">
              <string>Ваш результат</string>
@@ -825,6 +862,9 @@ color: rgb(255, 255, 255);</string>
                   <pointsize>18</pointsize>
                  </font>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(229, 70, 227);</string>
+                </property>
                 <property name="text">
                  <string>Время</string>
                 </property>
@@ -836,6 +876,9 @@ color: rgb(255, 255, 255);</string>
                  <font>
                   <pointsize>18</pointsize>
                  </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(229, 70, 227);</string>
                 </property>
                 <property name="text">
                  <string>x</string>
@@ -849,6 +892,9 @@ color: rgb(255, 255, 255);</string>
                   <pointsize>18</pointsize>
                  </font>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(229, 70, 227);</string>
+                </property>
                 <property name="text">
                  <string>Скорость</string>
                 </property>
@@ -860,6 +906,9 @@ color: rgb(255, 255, 255);</string>
                  <font>
                   <pointsize>18</pointsize>
                  </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(229, 70, 227);</string>
                 </property>
                 <property name="text">
                  <string>x</string>
@@ -873,6 +922,9 @@ color: rgb(255, 255, 255);</string>
                   <pointsize>18</pointsize>
                  </font>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(229, 70, 227);</string>
+                </property>
                 <property name="text">
                  <string>Количество ошибок</string>
                 </property>
@@ -884,6 +936,9 @@ color: rgb(255, 255, 255);</string>
                  <font>
                   <pointsize>18</pointsize>
                  </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(229, 70, 227);</string>
                 </property>
                 <property name="text">
                  <string>x</string>
@@ -897,6 +952,9 @@ color: rgb(255, 255, 255);</string>
                   <pointsize>18</pointsize>
                  </font>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(229, 70, 227);</string>
+                </property>
                 <property name="text">
                  <string>Процент чистоты текста</string>
                 </property>
@@ -908,6 +966,9 @@ color: rgb(255, 255, 255);</string>
                  <font>
                   <pointsize>18</pointsize>
                  </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(229, 70, 227);</string>
                 </property>
                 <property name="text">
                  <string>x</string>
@@ -970,12 +1031,12 @@ color: rgb(255, 255, 255);</string>
               </property>
               <property name="styleSheet">
                <string notr="true">border-width: 2px;
-color: rgb(0, 0, 0);
+color: rgb(68, 255, 0);
 border-style: solid;
 border-color: blue;</string>
               </property>
               <property name="plainText">
-               <string/>
+               <string>какой-то текст</string>
               </property>
              </widget>
             </item>
@@ -1034,7 +1095,8 @@ border-color: blue;</string>
               <property name="styleSheet">
                <string notr="true">border-width: 2px;
 border-style: solid;
-border-color: blue;</string>
+border-color: blue;
+color: rgb(68, 255, 0);</string>
               </property>
               <property name="plainText">
                <string/>

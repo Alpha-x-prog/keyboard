@@ -18,7 +18,7 @@ first_side = ['Ё', 'Ё', 'Ц', 'У', 'К', 'Е', 'Ф', 'Ы', 'В', 'А', 'П', 
 additional_characters = {ord('"'): ['Left_Shift', 2], ord(':'): ['Right_Shift', 6], ord(","): ['Right_Shift', '.']}
 lessons_letters = {1: ['ф', 'ы', 'в', 'а', 'о', 'л', 'д', 'ж'], 2: ['п', 'р'], 3: ['к', 'г', 'е', 'н'],
                    4: ['м', 'ь', 'и', 'т'], 5: ['у', 'ш', 'с', 'б'], 6: ['ц', 'ч', 'щ', 'ю'],
-                   7: ['й', 'я', 'з', 'х', 'ъ', 'э']}
+                   7: ['й', 'я', 'з', 'х', 'ъ', 'э'], 8: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']}
 special_symb = [16777217, 16777219, 16777220]
 
 
@@ -125,7 +125,7 @@ class ButtonsClick(SwitchBetweenButtons):
                         else:
                             if self.text[self.count_pressed] in additional_characters:
                                 pass
-                            elif self.text[self.count_pressed] == " ":
+                            elif self.text[self.count_pressed] == " " or self.text[self.count_pressed].isdigit():
                                 if event.text().isupper():
                                     self.shift_flag = 1
                                     self.change_shift_red(event.text().upper())
@@ -164,6 +164,9 @@ class ButtonsClick(SwitchBetweenButtons):
             self.first_button = 'pushButton_' + str(number_button)
         self.first_color_button = self.window.findChild(QPushButton,
                                                         self.first_button).palette().button().color().name()
+        #    x = self.window.findChild(QPushButton, self.first_button).QStyle()
+
+        #   self.window.findChild(QPushButton, self.first_button).setStyleSheet(" border-width: 1px; border-style: solid;        border-color: black;        border-style: outset;        border-radius: 10px;                                                                            background-color: '#00ff00'")
         self.window.findChild(QPushButton, self.first_button).setStyleSheet("background-color: '#00ff00'")
         name_button = self.text[self.count_pressed]
         if name_button.isupper() or shift == 1:
@@ -255,6 +258,29 @@ class ButtonsClick(SwitchBetweenButtons):
         self.window.for_text.setPlainText(self.text)
         self.window.user_text.setPlainText("")
         f.close()
+
+    def random_letters_part_4(self):
+        numbers = lessons_letters[8]
+        text = ""
+        for j in range(29):
+            text += str(random.choices(numbers)[0]) + " "
+        self.text = text
+        self.symbols = len(text) - 1
+        self.window.for_text.setPlainText(text)
+        self.window.user_text.setPlainText("")
+
+    def random_letters_part_5(self):
+        numbers = lessons_letters[8]
+        text = ""
+        while len(text) < 40:
+            for i in range(random.randint(3, 6)):
+                text += str(random.choices(numbers)[0])
+            text += ' '
+        self.text = text
+        self.symbols = len(self.text) - 1
+        self.window.for_text.setPlainText(text)
+        self.window.user_text.setPlainText("")
+
 
     def table_result(self, view, time, mistakes, symbols, percent):
         max_id = cursor.execute('SELECT MAX(id) '
@@ -389,7 +415,7 @@ class Test(ButtonsClick):
         id_text = random.randint(1, count_str)
         self.text, self.symbols = cursor.execute('SELECT text, symbols '
                                                  'FROM texts '
-                                                 'WHERE id = ?', (5,)).fetchone() # текст
+                                                 'WHERE id = ?', (5,)).fetchone()  # текст
         self.window.for_text.setPlainText(self.text)
         self.window.english.setVisible(False)
         self.window.btn_testing.clicked.connect(self.testing)
@@ -456,14 +482,15 @@ class UserLessons(ButtonsClick):
             self.window.findChild(QLabel, a[i]).setVisible(False)
             self.window.findChild(QLabel, str(a[i]) + '_result').setVisible(False)
         self.show()
-        for i in range(self.lesson_number):
-            for j in range(len(lessons_letters.get(i + 1))):
-                self.symbols_user.append(lessons_letters.get(i + 1)[j])
-        for i in range(len(self.symbols_user)):
-            if self.symbols_user[i] in main_letters:
-                self.symbols_for_text.append(30)
-            else:
-                self.symbols_for_text.append(10)
+        if part in [1, 2]:
+            for i in range(self.lesson_number):
+                for j in range(len(lessons_letters.get(i + 1))):
+                    self.symbols_user.append(lessons_letters.get(i + 1)[j])
+            for i in range(len(self.symbols_user)):
+                if self.symbols_user[i] in main_letters:
+                    self.symbols_for_text.append(30)
+                else:
+                    self.symbols_for_text.append(10)
         if part == 1:
             self.us_lessons = 1
             self.random_letters_part_1(self.symbols_for_text)
@@ -479,14 +506,28 @@ class UserLessons(ButtonsClick):
             self.random_letters_part_3()
             self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
             self.window.user_text.installEventFilter(self)
-        for i in range(7):
+        elif part == 4:
+            self.us_lessons = 4
+            self.random_letters_part_4()
+            self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
+            self.window.user_text.installEventFilter(self)
+        elif part == 5:
+            self.us_lessons = 5
+            self.random_letters_part_5()
+            self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
+            self.window.user_text.installEventFilter(self)
+        for i in range(8):
             self.window.findChild(QComboBox, str('lesson_' + str((i + 1)))).activated[str].connect(self.number_lesson)
 
     def number_lesson(self):
         changed_text_box = str(self.sender().currentText())
         #  print(changed_text_box[changed_text_box.rfind(" ") - 2], changed_text_box[changed_text_box.rfind(" ") + 1:])
         part = changed_text_box[changed_text_box.rfind(" ") + 1:]
-        if part == 'Буквы':
+        if part == 'Цифры-1':
+            part_lesson = 4
+        elif part == 'Цифры-2':
+            part_lesson = 5
+        elif part == 'Буквы':
             part_lesson = 1
         elif part == 'Клавишы':
             part_lesson = 2
