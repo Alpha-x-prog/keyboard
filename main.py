@@ -8,6 +8,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import math
 import tkinter as tk
+import datetime
 
 conn = sqlite3.connect('base_date/base.db')
 cursor = conn.cursor()
@@ -281,7 +282,6 @@ class ButtonsClick(SwitchBetweenButtons):
         self.window.for_text.setPlainText(text)
         self.window.user_text.setPlainText("")
 
-
     def table_result(self, view, time, mistakes, symbols, percent):
         max_id = cursor.execute('SELECT MAX(id) '
                                 'FROM history').fetchone()[0]
@@ -364,8 +364,9 @@ class FirstWindow(SwitchBetweenButtons):
     def btn_clicked(self):
         result_name = self.window.user_name_label.text()
         if result_name:
-            cursor.execute('INSERT INTO user_informational '
-                           'VAlUES (?)', (result_name,))
+            now = datetime.datetime.now().strftime("%d-%m-%Y %H:%M")
+            cursor.execute('INSERT INTO user_informational (user_name, date_reg) '
+                           'VALUES (?, ?)', (result_name, now))
             conn.commit()
             self.general_window = GeneralWindow()
             self.general_window.show()
@@ -546,6 +547,9 @@ class Profile(ButtonsClick):
         super(Profile, self).__init__()
         self.window = uic.loadUi('qt_designer/profile.ui', self)
         self.window.setWindowTitle('Профиль')
+        time = cursor.execute('SELECT date_reg '
+                              'FROM user_informational').fetchone()[0]
+        self.window.date_reg.setText(time)
         self.show()
 
 
