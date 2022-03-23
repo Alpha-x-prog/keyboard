@@ -16,10 +16,16 @@ key_board = ["а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и", "й", "
              "п", "р", "с", "т", "у", "ф", "х", "ц", "ч", "ш", "щ", "ъ", "ы", "ь", "э", "ю", "я",
              "-", "=", "\"", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 first_side = ['Ё', 'Ё', 'Ц', 'У', 'К', 'Е', 'Ф', 'Ы', 'В', 'А', 'П', 'Я', 'Ч', 'С', 'М', 'И', '1', '2', '3', '4', '5']
-additional_characters = {ord('"'): ['Left_Shift', 2], ord(':'): ['Right_Shift', 6], ord(","): ['Right_Shift', '.']}
+additional_characters = {ord('!'): ['Left_shift', 1], ord('"'): ['Left_Shift', 2], ord('№'): ['Left_Shift', 3],
+                         ord(';'): ['Left_Shift', 4], ord('%'): ['Left_Shift', 5],
+                         ord(':'): ['Right_Shift', 6], ord('?'): ['Right_Shift', 7], ord('*'): ['Right_Shift', 8],
+                         ord('('): ['Right_Shift', 9], ord(')'): ['Right_Shift', 0],
+                         ord(","): ['Right_Shift', '.']}
+additional_characters_symb = ['!"№;5:?*(']
 lessons_letters = {1: ['ф', 'ы', 'в', 'а', 'о', 'л', 'д', 'ж'], 2: ['п', 'р'], 3: ['к', 'г', 'е', 'н'],
                    4: ['м', 'ь', 'и', 'т'], 5: ['у', 'ш', 'с', 'б'], 6: ['ц', 'ч', 'щ', 'ю'],
-                   7: ['й', 'я', 'з', 'х', 'ъ', 'э'], 8: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']}
+                   7: ['й', 'я', 'з', 'х', 'ъ', 'э', 'ё'], 8: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+                   9: ['.', "\\", '-', '='], 10: ['!', '"', '№', ';', '%'], 11: [':', '?', '*', '(', ')']}
 special_symb = [16777217, 16777219, 16777220]
 
 
@@ -125,7 +131,9 @@ class ButtonsClick(SwitchBetweenButtons):
                             self.window.english.setVisible(True)
                         else:
                             if self.text[self.count_pressed] in additional_characters:
-                                pass
+                                print(1)
+                                x = additional_characters[self.text[self.count_pressed]]
+                                print(x)
                             elif self.text[self.count_pressed] == " " or self.text[self.count_pressed].isdigit():
                                 if event.text().isupper():
                                     self.shift_flag = 1
@@ -260,22 +268,22 @@ class ButtonsClick(SwitchBetweenButtons):
         self.window.user_text.setPlainText("")
         f.close()
 
-    def random_letters_part_4(self):
-        numbers = lessons_letters[8]
+    def random_letters_part_4(self, number_lesson):
+        symb = lessons_letters[number_lesson]
         text = ""
         for j in range(29):
-            text += str(random.choices(numbers)[0]) + " "
+            text += str(random.choices(symb)[0]) + " "
         self.text = text
         self.symbols = len(text) - 1
         self.window.for_text.setPlainText(text)
         self.window.user_text.setPlainText("")
 
-    def random_letters_part_5(self):
-        numbers = lessons_letters[8]
+    def random_letters_part_5(self, number_lesson):
+        symb = lessons_letters[number_lesson]
         text = ""
         while len(text) < 40:
             for i in range(random.randint(3, 6)):
-                text += str(random.choices(numbers)[0])
+                text += str(random.choices(symb)[0])
             text += ' '
         self.text = text
         self.symbols = len(self.text) - 1
@@ -509,24 +517,27 @@ class UserLessons(ButtonsClick):
             self.window.user_text.installEventFilter(self)
         elif part == 4:
             self.us_lessons = 4
-            self.random_letters_part_4()
+            self.random_letters_part_4(self.lesson_number)
+            if self.text[self.count_pressed] in additional_characters_symb:
+                print(additional_characters[1])
+                self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
             self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
             self.window.user_text.installEventFilter(self)
         elif part == 5:
             self.us_lessons = 5
-            self.random_letters_part_5()
+            self.random_letters_part_5(self.lesson_number)
             self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
             self.window.user_text.installEventFilter(self)
-        for i in range(8):
+        for i in range(9):
             self.window.findChild(QComboBox, str('lesson_' + str((i + 1)))).activated[str].connect(self.number_lesson)
 
     def number_lesson(self):
         changed_text_box = str(self.sender().currentText())
         #  print(changed_text_box[changed_text_box.rfind(" ") - 2], changed_text_box[changed_text_box.rfind(" ") + 1:])
         part = changed_text_box[changed_text_box.rfind(" ") + 1:]
-        if part == 'Цифры-1':
+        if part == 'Цифры-1' or part == 'Символы':
             part_lesson = 4
-        elif part == 'Цифры-2':
+        elif part == 'Цифры-2' or self.lesson_number == 9:
             part_lesson = 5
         elif part == 'Буквы':
             part_lesson = 1

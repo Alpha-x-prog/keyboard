@@ -649,7 +649,7 @@ color: rgb(255, 255, 255);</string>
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="comboBox_9">
+         <widget class="QComboBox" name="lesson_9">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -680,17 +680,12 @@ color: rgb(255, 255, 255);</string>
           </item>
           <item>
            <property name="text">
-            <string>Урок 9. Буквы</string>
+            <string>Урок 9. Символы</string>
            </property>
           </item>
           <item>
            <property name="text">
             <string>Урок 9. Клавишы</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Урок 9. Слова</string>
            </property>
           </item>
          </widget>
