@@ -287,13 +287,13 @@ color: rgb(255, 255, 255);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
@@ -304,17 +304,22 @@ color: rgb(255, 255, 255);</string>
           </property>
           <item>
            <property name="text">
-            <string>Урок 1</string>
+            <string>Урок 1. Новое</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 1. Буквы</string>
+            <string>Урок 1. Закрепление-1</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 1. Клавишы</string>
+            <string>Урок 1. Повторение</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Урок 1. Закрепление-2</string>
            </property>
           </item>
           <item>
@@ -334,13 +339,13 @@ color: rgb(255, 255, 255);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
@@ -351,17 +356,22 @@ color: rgb(255, 255, 255);</string>
           </property>
           <item>
            <property name="text">
-            <string>Урок 2</string>
+            <string>Урок 2. Новое</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 2. Буквы</string>
+            <string>Урок 2. Закрепление-1</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 2. Клавишы</string>
+            <string>Урок 2. Повторение</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Урок 2. Закрепление-2</string>
            </property>
           </item>
           <item>
@@ -381,13 +391,13 @@ color: rgb(255, 255, 255);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
@@ -398,17 +408,22 @@ color: rgb(255, 255, 255);</string>
           </property>
           <item>
            <property name="text">
-            <string>Урок 3</string>
+            <string>Урок 3. Новое</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 3. Буквы</string>
+            <string>Урок 3. Закрепление-1</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 3. Клавишы</string>
+            <string>Урок 3. Повторение</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Урок 3. Закрепление-2</string>
            </property>
           </item>
           <item>
@@ -428,13 +443,13 @@ color: rgb(255, 255, 255);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
@@ -445,17 +460,22 @@ color: rgb(255, 255, 255);</string>
           </property>
           <item>
            <property name="text">
-            <string>Урок 4</string>
+            <string>Урок 4. Новое</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 4. Буквы</string>
+            <string>Урок 4. Закрепление-1</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 4. Клавишы</string>
+            <string>Урок 4. Повторение</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Урок 4. Закрепление-2</string>
            </property>
           </item>
           <item>
@@ -475,13 +495,13 @@ color: rgb(255, 255, 255);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
@@ -492,17 +512,22 @@ color: rgb(255, 255, 255);</string>
           </property>
           <item>
            <property name="text">
-            <string>Урок 5</string>
+            <string>Урок 5. Новое</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 5. Буквы</string>
+            <string>Урок 5. Закрепление-1</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 5. Клавишы</string>
+            <string>Урок 5. Повторение</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Урок 5. Закрепление-2</string>
            </property>
           </item>
           <item>
@@ -522,13 +547,13 @@ color: rgb(255, 255, 255);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
@@ -539,17 +564,22 @@ color: rgb(255, 255, 255);</string>
           </property>
           <item>
            <property name="text">
-            <string>Урок 6</string>
+            <string>Урок 6. Новое</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 6. Буквы</string>
+            <string>Урок 6. Закрепление-1</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 6. Клавишы</string>
+            <string>Урок 6. Повторение</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Урок 6. Закрепление-2</string>
            </property>
           </item>
           <item>
@@ -569,13 +599,13 @@ color: rgb(255, 255, 255);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
@@ -586,17 +616,22 @@ color: rgb(255, 255, 255);</string>
           </property>
           <item>
            <property name="text">
-            <string>Урок 7</string>
+            <string>Урок 7. Новое</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 7. Буквы</string>
+            <string>Урок 7. Закрепление-1</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 7. Клавишы</string>
+            <string>Урок 7. Повторение</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Урок 7. Закрепление-2</string>
            </property>
           </item>
           <item>
@@ -616,13 +651,13 @@ color: rgb(255, 255, 255);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
@@ -633,17 +668,12 @@ color: rgb(255, 255, 255);</string>
           </property>
           <item>
            <property name="text">
-            <string>Урок 8</string>
+            <string>Урок 8. Новое</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 8. Цифры-1</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Урок 8. Цифры-2</string>
+            <string>Урок 8. Закрепление</string>
            </property>
           </item>
          </widget>
@@ -658,13 +688,13 @@ color: rgb(255, 255, 255);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
@@ -675,23 +705,18 @@ color: rgb(255, 255, 255);</string>
           </property>
           <item>
            <property name="text">
-            <string>Урок 9</string>
+            <string>Урок 9. Новое</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 9. Символы</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Урок 9. Клавишы</string>
+            <string>Урок 9. Закрепление</string>
            </property>
           </item>
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="comboBox_10">
+         <widget class="QComboBox" name="lesson_10">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -700,13 +725,13 @@ color: rgb(255, 255, 255);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>115</width>
+            <width>145</width>
             <height>25</height>
            </size>
           </property>
@@ -717,22 +742,90 @@ color: rgb(255, 255, 255);</string>
           </property>
           <item>
            <property name="text">
-            <string>Урок 1</string>
+            <string>Урок 10. Новое</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 1. Буквы</string>
+            <string>Урок 10. Закрепление</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="lesson_11">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>145</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>145</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <item>
+           <property name="text">
+            <string>Урок 11. Новое</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 1. Клавишы</string>
+            <string>Урок 11. Закрепление</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="lesson_12">
+          <property name="minimumSize">
+           <size>
+            <width>145</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>145</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <item>
+           <property name="text">
+            <string>Урок 12. Новое</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Урок 1. Слова</string>
+            <string>Урок 12. Закрепление-1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Урок 12. Закрепление-2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Урок 12. Слова</string>
            </property>
           </item>
          </widget>
@@ -3071,7 +3164,7 @@ border-color: blue;</string>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>115</width>
+          <width>145</width>
           <height>20</height>
          </size>
         </property>

@@ -9,6 +9,7 @@ from PyQt5.QtCore import *
 import math
 import tkinter as tk
 import datetime
+import language as lg
 
 conn = sqlite3.connect('base_date/base.db')
 cursor = conn.cursor()
@@ -21,11 +22,15 @@ additional_characters = {ord('!'): ['Left_shift', 1], ord('"'): ['Left_Shift', 2
                          ord(':'): ['Right_Shift', 6], ord('?'): ['Right_Shift', 7], ord('*'): ['Right_Shift', 8],
                          ord('('): ['Right_Shift', 9], ord(')'): ['Right_Shift', 0],
                          ord(","): ['Right_Shift', '.']}
-additional_characters_symb = ['!"№;5:?*(']
+additional_characters_symb = ["!", '"', "№", ";", "%", ':', '?', '*', '(', ')']
 lessons_letters = {1: ['ф', 'ы', 'в', 'а', 'о', 'л', 'д', 'ж'], 2: ['п', 'р'], 3: ['к', 'г', 'е', 'н'],
                    4: ['м', 'ь', 'и', 'т'], 5: ['у', 'ш', 'с', 'б'], 6: ['ц', 'ч', 'щ', 'ю'],
                    7: ['й', 'я', 'з', 'х', 'ъ', 'э', 'ё'], 8: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
-                   9: ['.', "\\", '-', '='], 10: ['!', '"', '№', ';', '%'], 11: [':', '?', '*', '(', ')']}
+                   9: ['.', "\\", '-', '='], 10: ['!', '\"', '№', ';', '%'], 11: [':', '?', '*', '(', ')'],
+                   12: [chr(ord("А") + i) for i in range(32)]
+                   }
+lessons_for_user = {'Новое': 'new', 'Закрепление': 'consolidation-1', 'Закрепление-1': 'consolidation-1',
+                    'Повторение': 'repeat', 'Закрепление-2': 'consolidation-2', 'Слова': 'words'}
 special_symb = [16777217, 16777219, 16777220]
 
 
@@ -91,11 +96,15 @@ class ButtonsClick(SwitchBetweenButtons):
 
     def eventFilter(self, obj, event):
         if obj is self.window.user_text and event.type() == QtCore.QEvent.KeyPress:
+            if lg.get_keyboard_language() != "Russian":
+                self.window.english.setVisible(True)
+                return True
+            else:
+                self.window.english.setVisible(False)
             if self.first_press == 1:
                 self.timer.start(1000)
                 self.first_press = 0
             if event.text() == self.text[self.count_pressed]:
-                self.window.english.setVisible(False)
                 self.change_color_button_reverse_green()
                 self.change_color_button_reverse_red()
                 self.change_shift_reverse_red()
@@ -117,7 +126,6 @@ class ButtonsClick(SwitchBetweenButtons):
                     self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
                 return False
             else:
-                self.window.english.setVisible(False)
                 if event.text():
                     self.change_color_button_reverse_red()
                     self.change_shift_reverse_red()
@@ -127,47 +135,46 @@ class ButtonsClick(SwitchBetweenButtons):
                         self.change_color_button_red(event.key())
                     else:
                         self.mistakes += 1
-                        if event.text().lower() not in key_board and event.text().isalpha():
-                            self.window.english.setVisible(True)
-                        else:
-                            if self.text[self.count_pressed] in additional_characters:
-                                print(1)
-                                x = additional_characters[self.text[self.count_pressed]]
-                                print(x)
-                            elif self.text[self.count_pressed] == " " or self.text[self.count_pressed].isdigit():
-                                if event.text().isupper():
-                                    self.shift_flag = 1
-                                    self.change_shift_red(event.text().upper())
+                        if self.text[self.count_pressed] in additional_characters_symb:
+                            if str(event.text()) == str(additional_characters[ord(self.text[self.count_pressed])][1]):
+                                pass
+                            else:
+                                self.flag = 1
+                                self.change_color_button_red(event.text().upper())
+                        elif self.text[self.count_pressed] == " " or self.text[self.count_pressed].isdigit():
+                            if event.text().isupper():
+                                self.shift_flag = 1
+                                self.change_shift_red(event.text().upper())
+                                self.flag = 1
+                                self.change_color_button_red(event.text().upper())
+                            else:
+                                self.flag = 1
+                                self.change_color_button_red(event.text().upper())
+                        elif self.text[self.count_pressed].isupper():
+                            if event.text().islower():
+                                if event.text() != self.text[self.count_pressed].lower():
                                     self.flag = 1
                                     self.change_color_button_red(event.text().upper())
-                                else:
+                            else:
+                                self.flag = 1
+                                self.change_color_button_red(event.text().upper())
+                        elif self.text[self.count_pressed].islower():
+                            if event.text().isupper():
+                                self.shift_flag = 1
+                                self.change_shift_red(event.text().upper())
+                                if event.text().lower() != self.text[self.count_pressed]:
                                     self.flag = 1
                                     self.change_color_button_red(event.text().upper())
-                            elif self.text[self.count_pressed].isupper():
-                                if event.text().islower():
-                                    if event.text() != self.text[self.count_pressed].lower():
-                                        self.flag = 1
-                                        self.change_color_button_red(event.text().upper())
-                                else:
-                                    self.flag = 1
-                                    self.change_color_button_red(event.text().upper())
-                            elif self.text[self.count_pressed].islower():
-                                if event.text().isupper():
-                                    self.shift_flag = 1
-                                    self.change_shift_red(event.text().upper())
-                                    if event.text().lower() != self.text[self.count_pressed]:
-                                        self.flag = 1
-                                        self.change_color_button_red(event.text().upper())
-                                else:
-                                    self.flag = 1
-                                    self.change_color_button_red(event.text().upper())
+                            else:
+                                self.flag = 1
+                                self.change_color_button_red(event.text().upper())
                 return True
         return False
 
     def change_color_button_green(self, number_button):
         shift = 0
         if number_button in additional_characters:
-            self.first_button = 'pushButton_' + str(ord(str(additional_characters.get(34)[1])))
+            self.first_button = 'pushButton_' + str(ord(str(additional_characters.get(number_button)[1])))
             shift = 1
         else:
             self.first_button = 'pushButton_' + str(number_button)
@@ -235,27 +242,62 @@ class ButtonsClick(SwitchBetweenButtons):
         self.count_time += 1
         self.window.time.setText(str(self.count_time // 60) + "." + str(self.count_time % 60).zfill(2))
 
-    def random_letters_part_1(self, a):
+    def letters_for_lesson(self):
+        main_letters = lessons_letters.get(self.lesson_number)
+        for i in range(self.lesson_number):
+            for j in range(len(lessons_letters.get(i + 1))):
+                self.symbols_user.append(lessons_letters.get(i + 1)[j])
+        for i in range(len(self.symbols_user)):
+            if self.symbols_user[i] in main_letters:
+                self.symbols_for_text.append(30)
+            else:
+                self.symbols_for_text.append(10)
+
+    def new(self):
+        symb = lessons_letters[self.lesson_number]
         text = ""
-        for j in range(26):
-            text += str(random.choices(self.symbols_user, weights=a)[0]) + " "
+        for j in range(29):
+            text += str(random.choices(symb)[0]) + " "
         self.text = text
         self.symbols = len(text) - 1
         self.window.for_text.setPlainText(text)
         self.window.user_text.setPlainText("")
 
-    def random_letters_part_2(self, a):
+    def consolidation_1(self):
+        self.letters_for_lesson()
+        text = ""
+        for j in range(26):
+            text += str(random.choices(self.symbols_user, weights=self.symbols_for_text)[0]) + " "
+        self.text = text
+        self.symbols = len(text) - 1
+        self.window.for_text.setPlainText(text)
+        self.window.user_text.setPlainText("")
+
+    def repeat(self):
+        symb = lessons_letters[self.lesson_number]
         text = ""
         while len(text) < 40:
             for i in range(random.randint(3, 6)):
-                text += str(random.choices(self.symbols_user, weights=a)[0])
+                text += str(random.choices(symb)[0])
+            text += ' '
+        self.text = text
+        self.symbols = len(text) - 1
+        self.window.for_text.setPlainText(text)
+        self.window.user_text.setPlainText("")
+
+    def consolidation_2(self):
+        self.letters_for_lesson()
+        text = ""
+        while len(text) < 40:
+            for i in range(random.randint(3, 6)):
+                text += str(random.choices(self.symbols_user, weights=self.symbols_for_text)[0])
             text += ' '
         self.text = text
         self.symbols = len(self.text) - 1
         self.window.for_text.setPlainText(text)
         self.window.user_text.setPlainText("")
 
-    def random_letters_part_3(self):
+    def words(self):
         f = open(f'words/lesson{self.lesson_number}.txt')
         lines = f.readlines()
         words = []
@@ -267,16 +309,6 @@ class ButtonsClick(SwitchBetweenButtons):
         self.window.for_text.setPlainText(self.text)
         self.window.user_text.setPlainText("")
         f.close()
-
-    def random_letters_part_4(self, number_lesson):
-        symb = lessons_letters[number_lesson]
-        text = ""
-        for j in range(29):
-            text += str(random.choices(symb)[0]) + " "
-        self.text = text
-        self.symbols = len(text) - 1
-        self.window.for_text.setPlainText(text)
-        self.window.user_text.setPlainText("")
 
     def random_letters_part_5(self, number_lesson):
         symb = lessons_letters[number_lesson]
@@ -393,7 +425,7 @@ class GeneralWindow(SwitchBetweenButtons):
         self.window = uic.loadUi('qt_designer/general information.ui', self)
         self.window.setWindowTitle('Общее')
         self.window.btn_testing.clicked.connect(self.testing)
-        self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 1))
+        self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 'new'))
         self.window.btn_informational.clicked.connect(self.info)
         self.window.btn_profile.clicked.connect(self.prof)
         self.show()
@@ -428,7 +460,7 @@ class Test(ButtonsClick):
         self.window.for_text.setPlainText(self.text)
         self.window.english.setVisible(False)
         self.window.btn_testing.clicked.connect(self.testing)
-        self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 1))
+        self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 'new'))
         self.window.btn_informational.clicked.connect(self.info)
         self.window.btn_profile.clicked.connect(self.prof)
         self.show()
@@ -452,7 +484,7 @@ class ResultTyping(ButtonsClick):
         self.count_result(self.time_typing, self.user_mistakes, self.symbols_text, "text")
 
         self.window.btn_testing.clicked.connect(self.testing)
-        self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 1))
+        self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, "new"))
         self.window.btn_informational.clicked.connect(self.info)
         self.window.btn_profile.clicked.connect(self.prof)
         self.show()
@@ -477,10 +509,9 @@ class UserLessons(ButtonsClick):
     def init_UI(self, part):
         super(UserLessons, self).__init__()
         self.window = uic.loadUi('qt_designer/user_lessons.ui', self)
-        main_letters = lessons_letters.get(self.lesson_number)
         self.timer.timeout.connect(self.showTime)
         self.window.btn_testing.clicked.connect(self.testing)
-        self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 1))
+        self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 'new'))
         self.window.btn_informational.clicked.connect(self.info)
         self.window.btn_profile.clicked.connect(self.prof)
         self.window.english.setVisible(False)
@@ -491,16 +522,32 @@ class UserLessons(ButtonsClick):
             self.window.findChild(QLabel, a[i]).setVisible(False)
             self.window.findChild(QLabel, str(a[i]) + '_result').setVisible(False)
         self.show()
-        if part in [1, 2]:
-            for i in range(self.lesson_number):
-                for j in range(len(lessons_letters.get(i + 1))):
-                    self.symbols_user.append(lessons_letters.get(i + 1)[j])
-            for i in range(len(self.symbols_user)):
-                if self.symbols_user[i] in main_letters:
-                    self.symbols_for_text.append(30)
-                else:
-                    self.symbols_for_text.append(10)
-        if part == 1:
+        if part == 'new':
+            self.us_lessons = 1
+            self.new()
+            self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
+            self.window.user_text.installEventFilter(self)
+        elif part == 'consolidation-1':
+            self.us_lessons = 1
+            self.consolidation_1()
+            self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
+            self.window.user_text.installEventFilter(self)
+        elif part == 'repeat':
+            self.us_lessons = 1
+            self.repeat()
+            self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
+            self.window.user_text.installEventFilter(self)
+        elif part == 'consolidation-2':
+            self.us_lessons = 2
+            self.consolidation_2()
+            self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
+            self.window.user_text.installEventFilter(self)
+        elif part == 'words':
+            self.us_lessons = 3
+            self.words()
+            self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
+            self.window.user_text.installEventFilter(self)
+        elif part == 1:
             self.us_lessons = 1
             self.random_letters_part_1(self.symbols_for_text)
             self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
@@ -518,9 +565,6 @@ class UserLessons(ButtonsClick):
         elif part == 4:
             self.us_lessons = 4
             self.random_letters_part_4(self.lesson_number)
-            if self.text[self.count_pressed] in additional_characters_symb:
-                print(additional_characters[1])
-                self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
             self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
             self.window.user_text.installEventFilter(self)
         elif part == 5:
@@ -528,24 +572,18 @@ class UserLessons(ButtonsClick):
             self.random_letters_part_5(self.lesson_number)
             self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
             self.window.user_text.installEventFilter(self)
-        for i in range(9):
+        for i in range(12):
             self.window.findChild(QComboBox, str('lesson_' + str((i + 1)))).activated[str].connect(self.number_lesson)
 
     def number_lesson(self):
         changed_text_box = str(self.sender().currentText())
-        #  print(changed_text_box[changed_text_box.rfind(" ") - 2], changed_text_box[changed_text_box.rfind(" ") + 1:])
-        part = changed_text_box[changed_text_box.rfind(" ") + 1:]
-        if part == 'Цифры-1' or part == 'Символы':
-            part_lesson = 4
-        elif part == 'Цифры-2' or self.lesson_number == 9:
-            part_lesson = 5
-        elif part == 'Буквы':
-            part_lesson = 1
-        elif part == 'Клавишы':
-            part_lesson = 2
+        x = str(changed_text_box[changed_text_box.rfind(" ") - 3:changed_text_box.rfind(" ") - 1])
+        if x[0] == ' ':
+            self.lesson_number = int(x[1])
         else:
-            part_lesson = 3
-        self.lessons(int(changed_text_box[changed_text_box.rfind(" ") - 2]), part_lesson)
+            self.lesson_number = int(x)
+        part_lesson = lessons_for_user[changed_text_box[changed_text_box.rfind(" ") + 1:]]
+        self.lessons(self.lesson_number, part_lesson)
 
 
 class Profile(ButtonsClick):
