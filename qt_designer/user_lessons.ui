@@ -673,7 +673,17 @@ color: rgb(255, 255, 255);</string>
           </item>
           <item>
            <property name="text">
-            <string>Урок 8. Закрепление</string>
+            <string>Урок 8. Закрепление-1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Урок 8. Поворение</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Урок 8. Закрепление-2</string>
            </property>
           </item>
          </widget>
@@ -710,7 +720,17 @@ color: rgb(255, 255, 255);</string>
           </item>
           <item>
            <property name="text">
-            <string>Урок 9. Закрепление</string>
+            <string>Урок 9. Закрепление-1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Урок 9. Повторение</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Урок 9. Закрепление-2</string>
            </property>
           </item>
          </widget>
@@ -747,7 +767,17 @@ color: rgb(255, 255, 255);</string>
           </item>
           <item>
            <property name="text">
-            <string>Урок 10. Закрепление</string>
+            <string>Урок 10. Закрепление-1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Урок 10. Повторение</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Урок 10. Закрепление-2</string>
            </property>
           </item>
          </widget>
@@ -784,7 +814,17 @@ color: rgb(255, 255, 255);</string>
           </item>
           <item>
            <property name="text">
-            <string>Урок 11. Закрепление</string>
+            <string>Урок 11. Закрепление-1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Урок 11. Повторение</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Урок 11. Закрепление-2</string>
            </property>
           </item>
          </widget>
@@ -816,6 +856,11 @@ color: rgb(255, 255, 255);</string>
           <item>
            <property name="text">
             <string>Урок 12. Закрепление-1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Урок 12. Повторение</string>
            </property>
           </item>
           <item>

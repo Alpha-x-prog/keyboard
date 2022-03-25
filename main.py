@@ -29,8 +29,8 @@ lessons_letters = {1: ['ф', 'ы', 'в', 'а', 'о', 'л', 'д', 'ж'], 2: ['п'
                    9: ['.', "\\", '-', '='], 10: ['!', '\"', '№', ';', '%'], 11: [':', '?', '*', '(', ')'],
                    12: [chr(ord("А") + i) for i in range(32)]
                    }
-lessons_for_user = {'Новое': 'new', 'Закрепление': 'consolidation-1', 'Закрепление-1': 'consolidation-1',
-                    'Повторение': 'repeat', 'Закрепление-2': 'consolidation-2', 'Слова': 'words'}
+lessons_for_user = {'Новое': 'new', 'Закрепление-1': 'consolidation-1', 'Повторение': 'repeat',
+                    'Закрепление-2': 'consolidation-2', 'Слова': 'words'}
 special_symb = [16777217, 16777219, 16777220]
 
 
@@ -256,7 +256,7 @@ class ButtonsClick(SwitchBetweenButtons):
     def new(self):
         symb = lessons_letters[self.lesson_number]
         text = ""
-        for j in range(29):
+        for j in range(35):
             text += str(random.choices(symb)[0]) + " "
         self.text = text
         self.symbols = len(text) - 1
@@ -266,7 +266,7 @@ class ButtonsClick(SwitchBetweenButtons):
     def consolidation_1(self):
         self.letters_for_lesson()
         text = ""
-        for j in range(26):
+        for j in range(35):
             text += str(random.choices(self.symbols_user, weights=self.symbols_for_text)[0]) + " "
         self.text = text
         self.symbols = len(text) - 1
@@ -276,7 +276,7 @@ class ButtonsClick(SwitchBetweenButtons):
     def repeat(self):
         symb = lessons_letters[self.lesson_number]
         text = ""
-        while len(text) < 40:
+        while len(text) < 60:
             for i in range(random.randint(3, 6)):
                 text += str(random.choices(symb)[0])
             text += ' '
@@ -288,7 +288,7 @@ class ButtonsClick(SwitchBetweenButtons):
     def consolidation_2(self):
         self.letters_for_lesson()
         text = ""
-        while len(text) < 40:
+        while len(text) < 60:
             for i in range(random.randint(3, 6)):
                 text += str(random.choices(self.symbols_user, weights=self.symbols_for_text)[0])
             text += ' '
@@ -302,25 +302,13 @@ class ButtonsClick(SwitchBetweenButtons):
         lines = f.readlines()
         words = []
         len_lesson_word = len(lines) - 1
-        while len(' '.join(words)) <= 20:
+        while len(' '.join(words)) < 60:
             words.append(lines[random.randint(0, len_lesson_word)].strip())
         self.text = ' '.join(words)
         self.symbols = len(self.text)
         self.window.for_text.setPlainText(self.text)
         self.window.user_text.setPlainText("")
         f.close()
-
-    def random_letters_part_5(self, number_lesson):
-        symb = lessons_letters[number_lesson]
-        text = ""
-        while len(text) < 40:
-            for i in range(random.randint(3, 6)):
-                text += str(random.choices(symb)[0])
-            text += ' '
-        self.text = text
-        self.symbols = len(self.text) - 1
-        self.window.for_text.setPlainText(text)
-        self.window.user_text.setPlainText("")
 
     def table_result(self, view, time, mistakes, symbols, percent):
         max_id = cursor.execute('SELECT MAX(id) '
@@ -547,33 +535,19 @@ class UserLessons(ButtonsClick):
             self.words()
             self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
             self.window.user_text.installEventFilter(self)
-        elif part == 1:
-            self.us_lessons = 1
-            self.random_letters_part_1(self.symbols_for_text)
-            self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
-            self.window.user_text.installEventFilter(self)
-        elif part == 2:
-            self.us_lessons = 2
-            self.random_letters_part_2(self.symbols_for_text)
-            self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
-            self.window.user_text.installEventFilter(self)
-        elif part == 3:
-            self.us_lessons = 3
-            self.random_letters_part_3()
-            self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
-            self.window.user_text.installEventFilter(self)
-        elif part == 4:
-            self.us_lessons = 4
-            self.random_letters_part_4(self.lesson_number)
-            self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
-            self.window.user_text.installEventFilter(self)
-        elif part == 5:
-            self.us_lessons = 5
-            self.random_letters_part_5(self.lesson_number)
-            self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
-            self.window.user_text.installEventFilter(self)
+
+        self.for_text.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.for_text.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.for_text.updateRequest.connect(self.handle_updateRequest)
+        self.handle_updateRequest()
         for i in range(12):
             self.window.findChild(QComboBox, str('lesson_' + str((i + 1)))).activated[str].connect(self.number_lesson)
+
+    def handle_updateRequest(self):
+        doc = self.for_text.document()
+        tb = doc.findBlockByNumber(doc.blockCount() - 1)
+        h = int(self.for_text.blockBoundingGeometry(tb).bottom() + 2 * doc.documentMargin()) + 1
+        self.for_text.setFixedHeight(h)
 
     def number_lesson(self):
         changed_text_box = str(self.sender().currentText())
