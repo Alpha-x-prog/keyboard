@@ -93,6 +93,7 @@ class ButtonsClick(SwitchBetweenButtons):
         self.shift_color = None
         self.mistakes = 0
         self.symbols = None
+        self.part_lesson = 'new'
 
     def eventFilter(self, obj, event):
         if obj is self.window.user_text and event.type() == QtCore.QEvent.KeyPress:
@@ -373,6 +374,19 @@ class ButtonsClick(SwitchBetweenButtons):
             self.count_user_number_lesson += 1
             return True
 
+    def choose_lesson_letters(self):
+        if self.part_lesson == 'new':
+            self.new()
+        elif self.part_lesson == 'consolidation-1':
+            self.consolidation_1()
+        elif self.part_lesson == 'repeat':
+            self.repeat()
+        elif self.part_lesson == 'consolidation-2':
+            self.consolidation_2()
+        elif self.part_lesson == 'words':
+            self.words()
+        self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
+
 
 class FirstWindow(SwitchBetweenButtons):
     def __init__(self):
@@ -496,6 +510,7 @@ class UserLessons(ButtonsClick):
 
     def init_UI(self, part):
         super(UserLessons, self).__init__()
+        self.part_lesson = part
         self.window = uic.loadUi('qt_designer/user_lessons.ui', self)
         self.timer.timeout.connect(self.showTime)
         self.window.btn_testing.clicked.connect(self.testing)
@@ -510,31 +525,9 @@ class UserLessons(ButtonsClick):
             self.window.findChild(QLabel, a[i]).setVisible(False)
             self.window.findChild(QLabel, str(a[i]) + '_result').setVisible(False)
         self.show()
-        if part == 'new':
-            self.us_lessons = 1
-            self.new()
-            self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
-            self.window.user_text.installEventFilter(self)
-        elif part == 'consolidation-1':
-            self.us_lessons = 1
-            self.consolidation_1()
-            self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
-            self.window.user_text.installEventFilter(self)
-        elif part == 'repeat':
-            self.us_lessons = 1
-            self.repeat()
-            self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
-            self.window.user_text.installEventFilter(self)
-        elif part == 'consolidation-2':
-            self.us_lessons = 2
-            self.consolidation_2()
-            self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
-            self.window.user_text.installEventFilter(self)
-        elif part == 'words':
-            self.us_lessons = 3
-            self.words()
-            self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
-            self.window.user_text.installEventFilter(self)
+
+        self.choose_lesson_letters()
+        self.window.user_text.installEventFilter(self)
 
         self.for_text.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.for_text.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
