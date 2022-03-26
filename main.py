@@ -501,7 +501,7 @@ class Test(ButtonsClick):
         id_text = random.randint(1, count_str)
         self.text, self.symbols = cursor.execute('SELECT text, symbols '
                                                  'FROM texts '
-                                                 'WHERE id = ?', (5,)).fetchone()  # текст
+                                                 'WHERE id = ?', (id_text,)).fetchone()  # текст
         self.window.for_text.setPlainText(self.text)
         self.window.english.setVisible(False)
         self.window.btn_testing.clicked.connect(self.testing)
@@ -599,7 +599,6 @@ class UserLessons(ButtonsClick):
         else:
             self.lesson_number = int(x)
         part_lesson = changed_text_box[changed_text_box.rfind(" ") + 1:]
-        print(part_lesson)
         self.lessons(self.lesson_number, part_lesson)
 
 
