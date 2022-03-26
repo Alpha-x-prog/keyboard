@@ -32,6 +32,7 @@ lessons_letters = {1: ['ф', 'ы', 'в', 'а', 'о', 'л', 'д', 'ж'], 2: ['п'
 lessons_for_user = {'Новое': 'new', 'Закрепление-1': 'consolidation-1', 'Повторение': 'repeat',
                     'Закрепление-2': 'consolidation-2', 'Слова': 'words'}
 special_symb = [16777217, 16777219, 16777220]
+flag_first_result = False
 
 
 # conn.close()
@@ -70,7 +71,41 @@ class SwitchBetweenButtons(QtWidgets.QMainWindow):
         self.close()
 
 
-class ButtonsClick(SwitchBetweenButtons):
+class SaveResultBD(QtWidgets.QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.x = None
+
+    def first_result(self):
+        now = datetime.datetime.now().strftime("%d-%m-%Y %H:%M")
+        cursor.execute('UPDATE user_informational '
+                       'SET first_result = (?) ', (now,))
+        conn.commit()
+
+    def end_result(self):
+        now = datetime.datetime.now().strftime("%d-%m-%Y %H:%M")
+        cursor.execute('UPDATE user_informational '
+                       'SET end_result = (?) ', (now,))
+        conn.commit()
+
+    def min_mistakes(self, mistake):
+        min_mistake_user = cursor.execute('SELECT min_mistakes '
+                                          'FROM user_informational').fetchone()[0]
+        if min_mistake_user is None or min_mistake_user > mistake:
+            cursor.execute('UPDATE user_informational '
+                           'SET min_mistakes = (?) ', (mistake,))
+        conn.commit()
+
+    def best_time(self, time):
+        best_time_user = cursor.execute('SELECT best_time '
+                                        'FROM user_informational').fetchone()[0]
+        if best_time_user is None or best_time_user > time:
+            cursor.execute('UPDATE user_informational '
+                           'SET best_time = (?) ', (time,))
+        conn.commit()
+
+
+class ButtonsClick(SwitchBetweenButtons, SaveResultBD):
     def __init__(self):
         super().__init__()
         self.text = None
@@ -111,18 +146,13 @@ class ButtonsClick(SwitchBetweenButtons):
                 self.change_shift_reverse_red()
                 self.count_pressed += 1
                 if self.count_pressed >= self.symbols:
-                    if self.us_lessons == 1:
-                        return self.lesson_repeat(1)
-                    elif self.us_lessons == 2:
-                        return self.lesson_repeat(2)
-                    elif self.us_lessons == 3:
-                        return self.lesson_repeat(3)
-                    else:
-
+                    if self.symbols > 350:
                         self.result_typ = ResultTyping(self.count_time, self.mistakes, self.symbols)
                         self.result_typ.show()
                         self.timer.stop()
                         self.close()
+                    else:
+                        return self.lesson_repeat()
                 else:
                     self.change_color_button_green(ord(self.text[self.count_pressed].upper()))
                 return False
@@ -324,8 +354,17 @@ class ButtonsClick(SwitchBetweenButtons):
         conn.commit()
 
     def count_result(self, time, mistakes, symbols, view):
-        if view == "lesson":
-            symbols *= 3
+        print(1)
+        if flag_first_result == 0:
+            self.first_result()
+        print(2)
+        self.end_result()
+        print(3)
+        self.min_mistakes(mistakes)
+        print(4)
+        self.best_time(time)
+        print(5)
+        symbols *= 3
         minutes, second = self.russian_language(time // 60, 'минут'), self.russian_language(
             time % 60, 'секунд')
         self.window.times_result.setText(f'{minutes} {second}')
@@ -350,7 +389,7 @@ class ButtonsClick(SwitchBetweenButtons):
             time = str(str(time) + str(f" {word}ы"))
         return time
 
-    def lesson_repeat(self, number):
+    def lesson_repeat(self):
         if self.count_user_number_lesson == 3:
             self.window.my_result.setVisible(True)
             a = ['times', 'speed', 'percent_text', 'count_mistakes']
@@ -365,12 +404,7 @@ class ButtonsClick(SwitchBetweenButtons):
             return False
         else:
             self.count_pressed = 0
-            if number == 1:
-                self.random_letters_part_1(self.symbols_for_text)
-            elif number == 2:
-                self.random_letters_part_2(self.symbols_for_text)
-            elif number == 3:
-                self.random_letters_part_3()
+            self.choose_lesson_letters()
             self.count_user_number_lesson += 1
             return True
 
@@ -427,7 +461,7 @@ class GeneralWindow(SwitchBetweenButtons):
         self.window = uic.loadUi('qt_designer/general information.ui', self)
         self.window.setWindowTitle('Общее')
         self.window.btn_testing.clicked.connect(self.testing)
-        self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 'new'))
+        self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 'Новое'))
         self.window.btn_informational.clicked.connect(self.info)
         self.window.btn_profile.clicked.connect(self.prof)
         self.show()
@@ -462,7 +496,7 @@ class Test(ButtonsClick):
         self.window.for_text.setPlainText(self.text)
         self.window.english.setVisible(False)
         self.window.btn_testing.clicked.connect(self.testing)
-        self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 'new'))
+        self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 'Новое'))
         self.window.btn_informational.clicked.connect(self.info)
         self.window.btn_profile.clicked.connect(self.prof)
         self.show()
@@ -486,10 +520,16 @@ class ResultTyping(ButtonsClick):
         self.count_result(self.time_typing, self.user_mistakes, self.symbols_text, "text")
 
         self.window.btn_testing.clicked.connect(self.testing)
-        self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, "new"))
+        self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, "Новое"))
         self.window.btn_informational.clicked.connect(self.info)
         self.window.btn_profile.clicked.connect(self.prof)
         self.show()
+
+        self.end_result()
+        self.min_mistakes(self.user_mistakes)
+        self.best_time(self.time_typing)
+        if flag_first_result == 0:
+            self.first_result()
 
 
 class UserLessons(ButtonsClick):
@@ -510,11 +550,11 @@ class UserLessons(ButtonsClick):
 
     def init_UI(self, part):
         super(UserLessons, self).__init__()
-        self.part_lesson = part
+        self.part_lesson = lessons_for_user[part]
         self.window = uic.loadUi('qt_designer/user_lessons.ui', self)
         self.timer.timeout.connect(self.showTime)
         self.window.btn_testing.clicked.connect(self.testing)
-        self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 'new'))
+        self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 'Новое'))
         self.window.btn_informational.clicked.connect(self.info)
         self.window.btn_profile.clicked.connect(self.prof)
         self.window.english.setVisible(False)
@@ -549,7 +589,8 @@ class UserLessons(ButtonsClick):
             self.lesson_number = int(x[1])
         else:
             self.lesson_number = int(x)
-        part_lesson = lessons_for_user[changed_text_box[changed_text_box.rfind(" ") + 1:]]
+        part_lesson = changed_text_box[changed_text_box.rfind(" ") + 1:]
+        print(part_lesson)
         self.lessons(self.lesson_number, part_lesson)
 
 
