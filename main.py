@@ -104,6 +104,20 @@ class SaveResultBD(QtWidgets.QMainWindow):
                            'SET best_time = (?) ', (time,))
         conn.commit()
 
+    def add_lessons(self):
+        passed_lessons = int(cursor.execute('SELECT lessons '
+                                            'FROM user_informational').fetchone()[0]) + 1
+        cursor.execute('UPDATE user_informational '
+                       'SET lessons = (?) ', (passed_lessons,))
+        conn.commit()
+
+    def add_tests(self):
+        passed_tests = int(cursor.execute('SELECT tests '
+                                          'FROM user_informational').fetchone()[0]) + 1
+        cursor.execute('UPDATE user_informational '
+                       'SET tests = (?) ', (passed_tests,))
+        conn.commit()
+
 
 class ButtonsClick(SwitchBetweenButtons, SaveResultBD):
     def __init__(self):
@@ -354,16 +368,11 @@ class ButtonsClick(SwitchBetweenButtons, SaveResultBD):
         conn.commit()
 
     def count_result(self, time, mistakes, symbols, view):
-        print(1)
         if flag_first_result == 0:
             self.first_result()
-        print(2)
         self.end_result()
-        print(3)
         self.min_mistakes(mistakes)
-        print(4)
         self.best_time(time)
-        print(5)
         symbols *= 3
         minutes, second = self.russian_language(time // 60, 'минут'), self.russian_language(
             time % 60, 'секунд')
@@ -604,10 +613,43 @@ class Profile(ButtonsClick):
         super(Profile, self).__init__()
         self.window = uic.loadUi('qt_designer/profile.ui', self)
         self.window.setWindowTitle('Профиль')
-        time = cursor.execute('SELECT date_reg '
-                              'FROM user_informational').fetchone()[0]
-        self.window.date_reg.setText(time)
+        self.window.btn_testing.clicked.connect(self.testing)
+        self.window.btn_user_lessons.clicked.connect(lambda: self.lessons(1, 'Новое'))
+        self.window.btn_informational.clicked.connect(self.info)
+        self.window.btn_profile.clicked.connect(self.prof)
+        self.fill_result_db()
         self.show()
+
+    def fill_result_db(self):
+        informational_tm = cursor.execute('SELECT time, mistakes '
+                                          'FROM history '
+                                          'WHERE view="lesson"').fetchall()
+        time, mistakes = 0, 0
+        for i in informational_tm:
+            time += int(i[0])
+            mistakes += int(i[1])
+        time //= len(informational_tm)
+        mistakes //= len(informational_tm)
+
+        all_info = cursor.execute('SELECT * '
+                                  'FROM user_informational').fetchone()
+        all_info_user = list()
+        for i in range(len(all_info)):
+            if all_info[i] is None:
+                all_info_user.append(" ")
+            else:
+                all_info_user.append(all_info[i])
+
+        self.window.name.setText(f"Профиль пользователя {all_info[0]}")
+        self.window.date_reg.setText(all_info_user[1])
+        self.window.first_result.setText(str(all_info_user[2]))
+        self.window.last_result.setText(str(all_info_user[3]))
+        self.window.min_mistakes.setText(str(all_info_user[4]))
+        self.window.best_time.setText(str(all_info_user[5]))
+        self.window.user_lessons.setText(str(all_info_user[6]))
+        self.window.user_tests.setText(str(all_info_user[7]))
+        self.window.middle_mistakes.setText(str(mistakes))
+        self.window.middle_time.setText(str(time))
 
 
 if __name__ == '__main__':

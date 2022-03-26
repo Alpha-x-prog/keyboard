@@ -175,7 +175,7 @@ color: rgb(255, 255, 255);</string>
      </layout>
     </item>
     <item>
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="name">
       <property name="font">
        <font>
         <pointsize>30</pointsize>
@@ -277,7 +277,7 @@ color: rgb(255, 255, 255);</string>
                </widget>
               </item>
               <item row="1" column="1">
-               <widget class="QLabel" name="label_14">
+               <widget class="QLabel" name="first_result">
                 <property name="font">
                  <font>
                   <pointsize>18</pointsize>
@@ -301,7 +301,7 @@ color: rgb(255, 255, 255);</string>
                </widget>
               </item>
               <item row="2" column="1">
-               <widget class="QLabel" name="label_15">
+               <widget class="QLabel" name="last_result">
                 <property name="font">
                  <font>
                   <pointsize>18</pointsize>
@@ -309,6 +309,54 @@ color: rgb(255, 255, 255);</string>
                 </property>
                 <property name="text">
                  <string>None</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label_13">
+                <property name="font">
+                 <font>
+                  <pointsize>18</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>пройдено уроков</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QLabel" name="label_18">
+                <property name="font">
+                 <font>
+                  <pointsize>18</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>пройдено тестов</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QLabel" name="user_lessons">
+                <property name="font">
+                 <font>
+                  <pointsize>18</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QLabel" name="user_tests">
+                <property name="font">
+                 <font>
+                  <pointsize>18</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>0</string>
                 </property>
                </widget>
               </item>
@@ -364,7 +412,7 @@ color: rgb(255, 255, 255);</string>
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLabel" name="label_16">
+             <widget class="QLabel" name="min_mistakes">
               <property name="font">
                <font>
                 <pointsize>18</pointsize>
@@ -388,7 +436,7 @@ color: rgb(255, 255, 255);</string>
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QLabel" name="label_17">
+             <widget class="QLabel" name="best_time">
               <property name="font">
                <font>
                 <pointsize>18</pointsize>
@@ -412,7 +460,7 @@ color: rgb(255, 255, 255);</string>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QLabel" name="label_19">
+             <widget class="QLabel" name="middle_mistakes">
               <property name="font">
                <font>
                 <pointsize>18</pointsize>
@@ -436,7 +484,7 @@ color: rgb(255, 255, 255);</string>
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QLabel" name="label_20">
+             <widget class="QLabel" name="middle_time">
               <property name="font">
                <font>
                 <pointsize>18</pointsize>
