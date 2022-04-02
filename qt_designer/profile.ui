@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1324</width>
-    <height>762</height>
+    <width>1352</width>
+    <height>764</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -535,17 +535,18 @@ color: rgb(255, 255, 255);</string>
         </item>
         <item>
          <widget class="QTableWidget" name="tableWidget">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
-            <width>602</width>
+            <width>515</width>
             <height>0</height>
            </size>
           </property>
-          <column>
-           <property name="text">
-            <string>номер</string>
-           </property>
-          </column>
           <column>
            <property name="text">
             <string>вид</string>
@@ -593,6 +594,9 @@ color: rgb(255, 255, 255);</string>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
         <property name="sizeHint" stdset="0">
          <size>
           <width>40</width>
@@ -610,7 +614,7 @@ color: rgb(255, 255, 255);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1324</width>
+     <width>1352</width>
      <height>21</height>
     </rect>
    </property>

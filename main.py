@@ -32,7 +32,6 @@ lessons_letters = {1: ['ф', 'ы', 'в', 'а', 'о', 'л', 'д', 'ж'], 2: ['п'
 lessons_for_user = {'Новое': 'new', 'Закрепление-1': 'consolidation-1', 'Повторение': 'repeat',
                     'Закрепление-2': 'consolidation-2', 'Слова': 'words'}
 special_symb = [16777217, 16777219, 16777220]
-flag_first_result = False
 
 
 # conn.close()
@@ -77,10 +76,13 @@ class SaveResultBD(QtWidgets.QMainWindow):
         self.x = None
 
     def first_result(self):
-        now = datetime.datetime.now().strftime("%d-%m-%Y %H:%M")
-        cursor.execute('UPDATE user_informational '
-                       'SET first_result = (?) ', (now,))
-        conn.commit()
+        first_value = cursor.execute('SELECT first_result '
+                                     'FROM user_informational').fetchone()[0]
+        if first_value is None:
+            now = datetime.datetime.now().strftime("%d-%m-%Y %H:%M")
+            cursor.execute('UPDATE user_informational '
+                           'SET first_result = (?) ', (now,))
+            conn.commit()
 
     def end_result(self):
         now = datetime.datetime.now().strftime("%d-%m-%Y %H:%M")
@@ -347,7 +349,7 @@ class ButtonsClick(SwitchBetweenButtons, SaveResultBD):
         lines = f.readlines()
         words = []
         len_lesson_word = len(lines) - 1
-        while len(' '.join(words)) < 60:
+        while len(' '.join(words)) < 7:
             words.append(lines[random.randint(0, len_lesson_word)].strip())
         self.text = ' '.join(words)
         self.symbols = len(self.text)
@@ -368,8 +370,7 @@ class ButtonsClick(SwitchBetweenButtons, SaveResultBD):
         conn.commit()
 
     def count_result(self, time, mistakes, symbols, view):
-        if flag_first_result == 0:
-            self.first_result()
+        self.first_result()
         self.end_result()
         self.min_mistakes(mistakes)
         self.best_time(time)
@@ -534,11 +535,10 @@ class ResultTyping(ButtonsClick):
         self.window.btn_profile.clicked.connect(self.prof)
         self.show()
 
+        self.first_result()
         self.end_result()
         self.min_mistakes(self.user_mistakes)
         self.best_time(self.time_typing)
-        if flag_first_result == 0:
-            self.first_result()
 
 
 class UserLessons(ButtonsClick):
@@ -649,6 +649,13 @@ class Profile(ButtonsClick):
         self.window.user_tests.setText(str(all_info_user[7]))
         self.window.middle_mistakes.setText(str(mistakes))
         self.window.middle_time.setText(str(time))
+
+        history_table = cursor.execute('SELECT * '
+                                       'FROM history').fetchall()
+        self.window.tableWidget.setRowCount(9)
+        for i in range(len(history_table)):
+            for j in range(0, 5):
+                self.window.tableWidget.setItem(i, j , QTableWidgetItem(str(history_table[i][j+1])))
 
 
 if __name__ == '__main__':
